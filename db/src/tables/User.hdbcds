@@ -1,0 +1,8 @@
+namespace HiMTA_Lect3;
+
+entity User {
+    @Comment: 'Id of User'
+    key usid : String(4);
+    @Comment: 'Description'
+    name : String(100);
+};
