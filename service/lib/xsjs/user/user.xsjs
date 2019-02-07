@@ -20,7 +20,7 @@ const userLib = new UserLib($.hdb.getConnection({
                     break;
                 }
                 case $.net.http.DEL : {
-                    userLib.doDelete(JSON.parse($.request.body.asString()));
+                    userLib.doDelete($.request.parameters.get("userid"));
                     break;
                 }
                 default: {

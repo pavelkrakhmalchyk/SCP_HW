@@ -2,8 +2,8 @@ service namespace "HiMTA_Lect3"{
 
     "HiMTA_Lect3::User" as "Users"
                 navigates("Users_2_Address" as "toAddress", "Users_2_Cars" as "toCars")
-            create forbidden
-            update forbidden
+            create using "xsjs.user:odataUsersCreate.xsjslib::userCreate"
+            update using "xsjs.user:odataUsersCreate.xsjslib::userUpdate"
             delete forbidden;
 
     "HiMTA_Lect3::ExtraInfo.Address" as "Address"

@@ -1,7 +1,11 @@
-const StatementLib = $.import('xsjs.statement', 'statement').statement;
-const statementLib = new StatementLib();
+const StatementCreator = $.import('xsjs.statement', 'statementCreator').statementCreator;
+const statementCreator = new StatementCreator();
+
+
 
 var user = function (connection) {
+    const Sequence = $.import('xsjs.sequence', 'sequence').sequence;
+    const sequence = new Sequence(connection);
 
     const USER_TABLE = "HiMTA_Lect3::User";
 
@@ -13,10 +17,10 @@ var user = function (connection) {
     }
 
     this.doPost = function (oUser) {
-        oUser.usid = getNextval("HiMTA_Lect3::usid");
+        oUser.usid = sequence.getNextValue("HiMTA_Lect3::usid");
 
         //generate query
-        const statement = statementLib.createPreparedInsert(USER_TABLE, oUser);
+        const statement = statementCreator.createInsertStatement(USER_TABLE, oUser);
         //execute update
         connection.executeUpdate(statement.sql, statement.aValues);
 
@@ -27,7 +31,7 @@ var user = function (connection) {
 
 
     this.doPut = function (oUser) {
-        const statement = statementLib.createPreparedUpdate(USER_TABLE, oUser);
+        const statement = statementCreator.createUpdateStatement(USER_TABLE, oUser);
         //execute update
         connection.executeUpdate(statement.sql, statement.aValues);
 
@@ -37,8 +41,8 @@ var user = function (connection) {
     };
 
 
-    this.doDelete = function (oUser) {
-        const statement = statementLib.createPreparedDelete(USER_TABLE, oUser);
+    this.doDelete = function (usid) {
+        const statement = statementCreator.createDeleteStatement(USER_TABLE, {usid: usid});
         connection.executeUpdate(statement.sql, statement.aValues);
 
         connection.commit();
@@ -46,14 +50,5 @@ var user = function (connection) {
         $.response.setBody(JSON.stringify({}));
     };
 
-    function getNextval(sSeqName) {
-        const statement = `select "${sSeqName}".NEXTVAL as "ID" from dummy`;
-        const result = connection.executeQuery(statement);
-
-        if (result.length > 0) {
-            return result[0].ID;
-        } else {
-            throw new Error('ID was not generated');
-        }
-    }
+    
 };
