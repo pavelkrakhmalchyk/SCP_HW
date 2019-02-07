@@ -1,7 +1,7 @@
-namespace HiMTA_Lect3;
+namespace HiMTA;
 
-using HiMTA_Lect3::ExtraInfo.Address;
-using HiMTA_Lect3::ExtraInfo.Cars;
+using HiMTA::ExtraInfo.Address;
+using HiMTA::ExtraInfo.Cars;
 
 
 entity User {

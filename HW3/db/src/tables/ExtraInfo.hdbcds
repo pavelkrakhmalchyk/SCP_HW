@@ -1,5 +1,5 @@
-﻿namespace HiMTA_Lect3;
-using HiMTA_Lect3::User;
+﻿namespace HiMTA;
+using HiMTA::User;
 
 context ExtraInfo{
 	

@@ -2,10 +2,10 @@
   "format_version": 1,
   "imports": [
     {
-      "target_table": "HiMTA_Lect3::User",
+      "target_table": "HiMTA::User",
       "source_data": {
         "data_type": "CSV",
-        "file_name": "HiMTA_Lect3::Users.csv",
+        "file_name": "HiMTA::Users.csv",
         "has_header": true
       },
       "import_settings": {
@@ -16,10 +16,10 @@
       }
     },
     {
-      "target_table": "HiMTA_Lect3::ExtraInfo.Address",
+      "target_table": "HiMTA::ExtraInfo.Address",
       "source_data": {
         "data_type": "CSV",
-        "file_name": "HiMTA_Lect3::Address.csv",
+        "file_name": "HiMTA::Address.csv",
         "has_header": true
       },
       "import_settings": {
@@ -32,10 +32,10 @@
       }
     },
     {
-      "target_table": "HiMTA_Lect3::ExtraInfo.Cars",
+      "target_table": "HiMTA::ExtraInfo.Cars",
       "source_data": {
         "data_type": "CSV",
-        "file_name": "HiMTA_Lect3::Cars.csv",
+        "file_name": "HiMTA::Cars.csv",
         "has_header": true
       },
       "import_settings": {

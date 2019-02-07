@@ -1,86 +1,66 @@
 const StatementCreator = $.import('xsjs.statement', 'statementCreator').statementCreator;
 const statementCreator = new StatementCreator();
 
-const Sequence = $.import('xsjs.sequence', 'sequence').sequence;
-const sequence = new Sequence($.hdb.getConnection({
-    treatDateAsUTC: true
-}));
+const USER_TABLE = "HiMTA::User";
+const SEQ_NAME = "HiMTA::usid";
 
 function userCreate(param){
-    $.trace.error(JSON.stringify(param));
     var after = param.afterTableName;
 
     var pStmt = param.connection.prepareStatement("select * from \"" + after + "\"");
     var oResult = pStmt.executeQuery();
-
     var oUserItems = recordSetToJSON(oResult, "items");
 
     var oUser = oUserItems.items[0];
-    $.trace.error(JSON.stringify(oUser));
 
-    oUser.usid = sequence.getNextValue("HiMTA_Lect3::usid");
+    pStmt = param.connection.prepareStatement(`select "${SEQ_NAME}".NEXTVAL as "ID" from dummy`);
+	var rs = pStmt.executeQuery();
     pStmt.close();
 
+	while (rs.next()) {
+		oUser.usid = rs.getString(1);
+	}
+
     for(var i = 0; i < 2; i++){
-        var createStatment;
-		var pStmt;
-		if(i < 1){
-			createStatment = statementCreator.createInsertStatement("HiMTA_Lect3::User", oUser);
+		if(i < 1) {
+			var createStatment = statementCreator.createInsertStatement(USER_TABLE, oUser);
             pStmt = param.connection.prepareStatement(createStatment.sql);			
 		} else {
 			pStmt = param.connection.prepareStatement("TRUNCATE TABLE \"" + after + "\"" );
 			pStmt.executeUpdate();
 			pStmt.close();
-			pStmt = param.connection.prepareStatement("insert into \"" + after + "\" values(?,?)" );		
+
+			pStmt = param.connection.prepareStatement("insert into \"" + after + "\" values(?,?)");		
 		}
 
 		for (var j = 0; j < createStatment.aValues.length; j++){
-            $.trace.error("Value =" + createStatment.aValues[j].toString());
             pStmt.setString(j + 1, createStatment.aValues[j].toString());
         }   
+
 		pStmt.executeUpdate();
 		pStmt.close();
 	}    
 }
 
 function userUpdate(param){
-    $.trace.error(JSON.stringify(param));
     var after = param.afterTableName;
 
     var pStmt = param.connection.prepareStatement("select * from \"" + after + "\"");
     var oResult = pStmt.executeQuery();
-
-    var oUserItems = recordSetToJSON(oResult, "items");
-
-    var oUser = oUserItems.items[0];
-    $.trace.error(JSON.stringify(oUser));
-
     pStmt.close();
 
-    for(var i = 0; i < 2; i++){
-        var createStatment;
-		var pStmt;
-		if(i < 1){
-			createStatment = statementCreator.createUpdateStatement("HiMTA_Lect3::User", oUser);
-            pStmt = param.connection.prepareStatement(createStatment.sql);			
+    var oUserItems = recordSetToJSON(oResult, "items");
+    var oUser = oUserItems.items[0];
 
-            for (var j = 0; j < createStatment.aValues.length; j++){
-                $.trace.error("Value i = 0 =" + createStatment.aValues[j].toString());
-                pStmt.setString(j + 1, createStatment.aValues[j].toString());
-            }  
-		} else {
-			pStmt = param.connection.prepareStatement("TRUNCATE TABLE \"" + after + "\"" );
-			pStmt.executeUpdate();
-			pStmt.close();
-			pStmt = param.connection.prepareStatement("insert into \"" + after + "\" values(?,?)" );
-            
-            pStmt.setString(1, createStatment.aValues[1].toString());
-            pStmt.setString(2, createStatment.aValues[0].toString());	
-		}
+    var updateStatment = statementCreator.createUpdateStatement(USER_TABLE, oUser);
+    pStmt = param.connection.prepareStatement(updateStatment.sql);			
 
-		pStmt.executeUpdate();
-		pStmt.close();
-	}    
+    for (var j = 0; j < updateStatment.aValues.length; j++){
+        pStmt.setString(j + 1, updateStatment.aValues[j].toString());
+    }  
+
+    pStmt.executeUpdate();
+    pStmt.close();
 }
 
 function recordSetToJSON(rs, rsName){
@@ -92,7 +72,7 @@ function recordSetToJSON(rs, rsName){
     var table=[];
     var value="";
     while (rs.next()) {
-        for (var i=1; i<=colCount; i++) {
+        for (var i = 1; i <= colCount; i++) {
             value = '"'+meta.getColumnLabel(i)+'" : ';
             switch(meta.getColumnType(i)) {
                 case $.db.types.VARCHAR:
@@ -177,7 +157,6 @@ function escapeSpecialChars(input) {
             .replace(/[\r]/g, '\\r')
             .replace(/[\t]/g, '\\t'); }
     else{
-
         return "";
     }
 }

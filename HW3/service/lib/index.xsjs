@@ -1,4 +1,4 @@
 $.response.contentType = "text/html";
-var output = "Hi MTA Lection3";
+var output = "Hi MTA";
 
 $.response.setBody(output);

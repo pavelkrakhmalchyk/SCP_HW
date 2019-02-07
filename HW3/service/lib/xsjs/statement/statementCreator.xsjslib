@@ -6,6 +6,10 @@ var statementCreator = function () {
         sql: "",
     };
 
+    this.getLastStatement = function () {
+        return statement;
+    }
+
     this.createInsertStatement = function (sTableName, oValueObject) {
 
         let sColumnList = '', sValueList = '';
@@ -37,19 +41,16 @@ var statementCreator = function () {
         for (var i = 1; i < keys.length; i++){
             statement.aParams.push(keys[i]);
             sSetClause += `"${keys[i]}" = ?, `;
+
+            statement.aValues.push(oValueObject[keys[i]]);
         }
 
-        for (var i = 1; i < values.length; i++){
-            statement.aValues.push(values[i]);
-        }
         statement.aValues.push(values[0]);
 
         sSetClause = sSetClause.slice(0, -2);
 
         statement.sql = `update "${sTableName}" set ${sSetClause} where "${keys[0]}" = ?`; 
 
-        
-        $.trace.error("sql to update: " + statement.sql);
         $.trace.error("sql to update: " + statement.sql);
         return statement;
     };

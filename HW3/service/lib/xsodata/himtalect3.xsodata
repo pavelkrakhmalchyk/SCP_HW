@@ -1,17 +1,17 @@
-service namespace "HiMTA_Lect3"{
+service namespace "HiMTA"{
 
-    "HiMTA_Lect3::User" as "Users"
+    "HiMTA::User" as "Users"
                 navigates("Users_2_Address" as "toAddress", "Users_2_Cars" as "toCars")
-            create using "xsjs.user:odataUsersCreate.xsjslib::userCreate"
-            update using "xsjs.user:odataUsersCreate.xsjslib::userUpdate"
+            create using "xsjs.user:odataUsersExits.xsjslib::userCreate"
+            update using "xsjs.user:odataUsersExits.xsjslib::userUpdate"
             delete forbidden;
 
-    "HiMTA_Lect3::ExtraInfo.Address" as "Address"
+    "HiMTA::ExtraInfo.Address" as "Address"
             create forbidden
             update forbidden
             delete forbidden;
 
-    "HiMTA_Lect3::ExtraInfo.Cars" as "Cars"
+    "HiMTA::ExtraInfo.Cars" as "Cars"
                 navigates("Cars_2_User" as "toUser")
             create forbidden
             update forbidden
