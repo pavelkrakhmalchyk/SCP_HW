@@ -22,10 +22,6 @@ var user = function (connection) {
         connection.executeUpdate(statement.sql, statement.aValues);
 
         connection.commit();
-
-        var stat = statementCreator.getLastStatement();
-        $.trace.error(stat.sql);
-
         $.response.status = $.net.http.CREATED;
         $.response.setBody(JSON.stringify(oUser));
     };
