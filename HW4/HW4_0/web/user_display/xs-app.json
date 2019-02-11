@@ -7,6 +7,16 @@
       "target": "$1",
       "localDir": "webapp",
       "authenticationType": "xsuaa"
+    },
+    {
+      "source": "^/sapui5_resources/(.*)$",
+      "target": "$1",
+      "destination": "sapui5_provider"
+    },
+    {
+      "source": "^/s4c/(.*)",
+      "target": "/$1",
+      "destination": "S4C"
     }
   ]
 }

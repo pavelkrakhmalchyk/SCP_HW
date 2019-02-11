@@ -45,22 +45,13 @@
             "name": "tmp\\Component.js"
         },
         {
-            "name": "tmp\\controller\\App.controller.js"
-        },
-        {
             "name": "tmp\\index.html"
         },
         {
             "name": "tmp\\manifest.json"
         },
         {
-            "name": "tmp\\view\\App.view.xml"
-        },
-        {
             "name": "tmp-dbg\\Component.js"
-        },
-        {
-            "name": "tmp-dbg\\controller\\App.controller.js"
         },
         {
             "name": "view\\App.view.xml"

@@ -1,7 +1,7 @@
 sap.ui.define([
 	"sap/ui/core/UIComponent",
-	"sap/ui/model/odata/v2/ODataModel"
-], function (UIComponent) {
+	"sap/ui/Device",
+], function (UIComponent, Device) {
 	"use strict";
 
 	return UIComponent.extend("user_display.Component", {
