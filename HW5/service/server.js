@@ -17,7 +17,7 @@ try {
 }
 
 try {
-    options = Object.assign(options, xsenv.getServices({ uaa: {tag: "xsuaa"} }));
+    options = Object.assign(options, xsenv.getServices({ uaa: "pk_uaa" }));
 } catch (err) {
     console.log("[ERROR]", err.message);
 }
