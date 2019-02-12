@@ -1,3 +1,4 @@
 .mta
 node_modules
 *.mtar
+.che
