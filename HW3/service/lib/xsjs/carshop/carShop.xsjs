@@ -1,5 +1,5 @@
-const UserLib = $.import('xsjs.user', 'user').user;
-const userLib = new UserLib($.hdb.getConnection({
+const CarShopLib = $.import('xsjs.carshop', 'carShop').carShop;
+const carShopLib = new CarShopLib($.hdb.getConnection({
     treatDateAsUTC: true
 }));
 
@@ -8,19 +8,19 @@ const userLib = new UserLib($.hdb.getConnection({
         try {
             switch ($.request.method) {
                 case $.net.http.GET : {
-                    userLib.doGet();
+                    carShopLib.doGet();
                     break;
                 }
                 case $.net.http.PUT : {
-                    userLib.doPut(JSON.parse($.request.body.asString()));
+                    carShopLib.doPut(JSON.parse($.request.body.asString()));
                     break;
                 }
                 case $.net.http.POST : {
-                    userLib.doPost(JSON.parse($.request.body.asString()));
+                    carShopLib.doPost(JSON.parse($.request.body.asString()));
                     break;
                 }
                 case $.net.http.DEL : {
-                    userLib.doDelete($.request.parameters.get("userid"));
+                    carShopLib.doDelete($.request.parameters.get("shopid"));
                     break;
                 }
                 default: {

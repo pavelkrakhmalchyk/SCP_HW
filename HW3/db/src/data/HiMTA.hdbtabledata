@@ -2,15 +2,15 @@
   "format_version": 1,
   "imports": [
     {
-      "target_table": "HiMTA::User",
+      "target_table": "HiMTA::CarShop",
       "source_data": {
         "data_type": "CSV",
-        "file_name": "HiMTA::Users.csv",
+        "file_name": "HiMTA::CarShop.csv",
         "has_header": true
       },
       "import_settings": {
         "import_columns": [
-          "usid",
+          "shopid",
           "name"
         ]
       }
@@ -24,7 +24,7 @@
       },
       "import_settings": {
         "import_columns": [
-					"usid",
+					"shopid",
 					"city",
 					"strt",
 					"hnum"
@@ -32,17 +32,19 @@
       }
     },
     {
-      "target_table": "HiMTA::ExtraInfo.Cars",
+      "target_table": "HiMTA::ExtraInfo.Car",
       "source_data": {
         "data_type": "CSV",
-        "file_name": "HiMTA::Cars.csv",
+        "file_name": "HiMTA::Car.csv",
         "has_header": true
       },
       "import_settings": {
         "import_columns": [
 					"crid",
-          "usid",
-          "name"
+          "shopid",
+          "name",
+          "model",
+          "color"
         ]
       }
     }

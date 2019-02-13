@@ -1,0 +1,28 @@
+service namespace "HiMTA"{
+
+    "HiMTA::CarShop" as "CarShops"
+                navigates("CarShops_2_Address" as "toAddress", "CarShops_2_Cars" as "toCars")
+            create using "xsjs.carshop:odataCarShopsExits.xsjslib::carShopCreate"
+            update using "xsjs.carshop:odataCarShopsExits.xsjslib::carShopUpdate"
+            delete forbidden;
+
+    "HiMTA::ExtraInfo.Address" as "Address"
+            create forbidden
+            update forbidden
+            delete forbidden;
+
+    "HiMTA::ExtraInfo.Car" as "Cars"
+                navigates("Cars_2_CarShops" as "toCarShop")
+            create forbidden
+            update forbidden
+            delete forbidden;
+
+    association "CarShops_2_Address" principal "CarShops"("shopid")
+            multiplicity "1" dependent "Address"("shopid") multiplicity "1";
+
+    association "CarShops_2_Cars" principal "CarShops"("shopid")
+            multiplicity "1" dependent "Cars"("shopid") multiplicity "*";
+
+    association "Cars_2_CarShops" principal "Cars"("shopid")
+            multiplicity "1" dependent "CarShops"("shopid") multiplicity "1";
+}

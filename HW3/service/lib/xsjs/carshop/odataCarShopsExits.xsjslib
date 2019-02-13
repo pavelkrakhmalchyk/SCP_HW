@@ -1,47 +1,47 @@
 const StatementCreator = $.import('xsjs.statement', 'statementCreator').statementCreator;
 const statementCreator = new StatementCreator();
 
-const USER_TABLE = "HiMTA::User";
-const SEQ_NAME = "HiMTA::usid";
+const CARSHOP_TABLE = "HiMTA::CarShop";
+const SEQ_NAME = "HiMTA::shopid";
 
 
-function userCreate(param){
+function carShopCreate(param){
     var afterTableName = param.afterTableName;
 
     var sStatement = "select * from \"" + afterTableName + "\"";
     var oResult = executeQuery(param.connection, sStatement);
 
-    var oUserItems = recordSetToJSON(oResult, "items");
-    var oUser = oUserItems.items[0];
+    var oCarShopItems = recordSetToJSON(oResult, "items");
+    var oCarShop = oCarShopItems.items[0];
 
     sStatement = `select "${SEQ_NAME}".NEXTVAL as "ID" from dummy`;
 	var rs = executeQuery(param.connection, sStatement);
 
 	while (rs.next()) {
-		oUser.usid = rs.getString(1);
+		oCarShop.shopid = rs.getString(1);
 	}
     
-    var oCreateStatment = statementCreator.createInsertStatement(USER_TABLE, oUser);
+    var oCreateStatment = statementCreator.createInsertStatement(CARSHOP_TABLE, oCarShop);
     executeUpdate(param.connection, oCreateStatment.sql, oCreateStatment.aValues);
 
     sStatement = "TRUNCATE TABLE \"" + afterTableName + "\"";
     executeUpdate(param.connection, sStatement);
 
-    oCreateStatment = statementCreator.createInsertStatement(afterTableName, oUser)
+    oCreateStatment = statementCreator.createInsertStatement(afterTableName, oCarShop)
     executeUpdate(param.connection, oCreateStatment.sql, oCreateStatment.aValues); 
 }
 
 
-function userUpdate(param){
+function carShopUpdate(param){
     var afterTableName = param.afterTableName;
 
     var sStatement = "select * from \"" + afterTableName + "\"";
     var oResult = executeQuery(param.connection, sStatement);
 
-    var oUserItems = recordSetToJSON(oResult, "items");
-    var oUser = oUserItems.items[0];
+    var oCarShopItems = recordSetToJSON(oResult, "items");
+    var oCarShop = oCarShopItems.items[0];
 
-    var oUpdateStatment = statementCreator.createUpdateStatement(USER_TABLE, oUser);
+    var oUpdateStatment = statementCreator.createUpdateStatement(CARSHOP_TABLE, oCarShop);
     executeUpdate(param.connection, oUpdateStatment.sql, oUpdateStatment.aValues);
 }
 

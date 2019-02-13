@@ -1,43 +1,43 @@
 const StatementCreator = $.import('xsjs.statement', 'statementCreator').statementCreator;
 const statementCreator = new StatementCreator();
 
-var user = function (connection) {
+var carShop = function (connection) {
 
-    const USER_TABLE = "HiMTA::User";
-    const SEQ_NAME = "HiMTA::usid";
+    const CARSHOP_TABLE = "HiMTA::CarShop";
+    const SEQ_NAME = "HiMTA::shopid";
 
     this.doGet = function(){
-        const statement = `select * from "${USER_TABLE}"`;
+        const statement = `select * from "${CARSHOP_TABLE}"`;
         const result = connection.executeQuery(statement);
         
         $.response.status = $.net.http.OK;
         $.response.setBody(JSON.stringify(result));
     }
 
-    this.doPost = function (oUser) {
-        oUser.usid = getNextValue(SEQ_NAME);
+    this.doPost = function (oCarShop) {
+        oCarShop.shopid = getNextValue(SEQ_NAME);
 
-        const statement = statementCreator.createInsertStatement(USER_TABLE, oUser);
+        const statement = statementCreator.createInsertStatement(CARSHOP_TABLE, oCarShop);
         connection.executeUpdate(statement.sql, statement.aValues);
 
         connection.commit();
         $.response.status = $.net.http.CREATED;
-        $.response.setBody(JSON.stringify(oUser));
+        $.response.setBody(JSON.stringify(oCarShop));
     };
 
 
-    this.doPut = function (oUser) {
-        const statement = statementCreator.createUpdateStatement(USER_TABLE, oUser);
+    this.doPut = function (oCarShop) {
+        const statement = statementCreator.createUpdateStatement(CARSHOP_TABLE, oCarShop);
         connection.executeUpdate(statement.sql, statement.aValues);
 
         connection.commit();
         $.response.status = $.net.http.CREATED;
-        $.response.setBody(JSON.stringify(oUser));
+        $.response.setBody(JSON.stringify(oCarShop));
     };
 
 
-    this.doDelete = function (usid) {
-        const statement = statementCreator.createDeleteStatement(USER_TABLE, {usid: usid});
+    this.doDelete = function (shopid) {
+        const statement = statementCreator.createDeleteStatement(CARSHOP_TABLE, {shopid: shopid});
         connection.executeUpdate(statement.sql, statement.aValues);
 
         connection.commit();

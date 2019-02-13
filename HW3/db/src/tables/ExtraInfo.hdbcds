@@ -1,13 +1,13 @@
 ﻿namespace HiMTA;
-using HiMTA::User;
+using HiMTA::CarShop;
 
 context ExtraInfo{
 	
 		entity Address {
     		@Comment: 'Id of Address'
 		    key adid : Integer64 generated always as identity ( start with 1 increment by 1 );
-		    @Comment: 'User for Address'
-		    usid : String(4);
+		    @Comment: 'Car Shop for Address'
+		    shopid : String(4);
 		    @Comment: 'City'
 		    city : String(100);
 		    @Comment: 'Street'
@@ -16,14 +16,18 @@ context ExtraInfo{
 		    hnum : Integer;
 		};
 
-		entity Cars {
+		entity Car {
 		    @Comment: 'Id of Car'
 		    key crid : String(4);
-		    @Comment: 'User for Car'
-		    usid : String(4);
+		    @Comment: 'Car Shop for Car'
+		    shopid : String(4);
 		    @Comment: 'Name'
-		    name : String(100);
+		    name : String(20);
+			@Comment: 'Model'
+		    model : String(20);
+			@Comment: 'Color'
+		    color : String(20);
 
-    		toUser : Association[1] to User on toUser.usid = usid;
+    		toCarShop : Association[1] to CarShop on toCarShop.shopid = shopid;
 		};
 };
