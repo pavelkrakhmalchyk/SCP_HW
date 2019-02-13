@@ -1,16 +1,11 @@
 var statementCreator = function () {
-
-    var statement = {
-        aParams: [],
-        aValues: [],
-        sql: "",
-    };
-
-    this.getLastStatement = function () {
-        return statement;
-    }
-
+    
     this.createInsertStatement = function (sTableName, oValueObject) {
+        let statement = {
+            aParams: [],
+            aValues: [],
+            sql: "",
+        };
 
         let sColumnList = '', sValueList = '';
 
@@ -31,7 +26,13 @@ var statementCreator = function () {
         return statement;
     };
 
+
     this.createUpdateStatement = function (sTableName, oValueObject) {
+        let statement = {
+            aParams: [],
+            aValues: [],
+            sql: "",
+        };
 
         let sSetClause = '';
 
@@ -55,7 +56,13 @@ var statementCreator = function () {
         return statement;
     };
 
+
     this.createDeleteStatement = function (sTableName, oValueObject) {
+        let statement = {
+            aParams: [],
+            aValues: [],
+            sql: "",
+        };
 
         let sWhereClause = '';
 

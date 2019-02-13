@@ -7,8 +7,9 @@ var user = function (connection) {
     const SEQ_NAME = "HiMTA::usid";
 
     this.doGet = function(){
-        const statement = 'select * from "HiMTA::User"';
+        const statement = `select * from "${USER_TABLE}"`;
         const result = connection.executeQuery(statement);
+        
         $.response.status = $.net.http.OK;
         $.response.setBody(JSON.stringify(result));
     }
@@ -16,16 +17,10 @@ var user = function (connection) {
     this.doPost = function (oUser) {
         oUser.usid = getNextValue(SEQ_NAME);
 
-        //generate query
         const statement = statementCreator.createInsertStatement(USER_TABLE, oUser);
-        //execute update
         connection.executeUpdate(statement.sql, statement.aValues);
 
         connection.commit();
-
-        var stat = statementCreator.getLastStatement();
-        $.trace.error(stat.sql);
-
         $.response.status = $.net.http.CREATED;
         $.response.setBody(JSON.stringify(oUser));
     };
@@ -33,7 +28,6 @@ var user = function (connection) {
 
     this.doPut = function (oUser) {
         const statement = statementCreator.createUpdateStatement(USER_TABLE, oUser);
-        //execute update
         connection.executeUpdate(statement.sql, statement.aValues);
 
         connection.commit();

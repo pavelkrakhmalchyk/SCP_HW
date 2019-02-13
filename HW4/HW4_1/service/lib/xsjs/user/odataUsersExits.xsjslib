@@ -4,64 +4,70 @@ const statementCreator = new StatementCreator();
 const USER_TABLE = "HiMTA::User";
 const SEQ_NAME = "HiMTA::usid";
 
+
 function userCreate(param){
-    var after = param.afterTableName;
+    var afterTableName = param.afterTableName;
 
-    var pStmt = param.connection.prepareStatement("select * from \"" + after + "\"");
-    var oResult = pStmt.executeQuery();
+    var sStatement = "select * from \"" + afterTableName + "\"";
+    var oResult = executeQuery(param.connection, sStatement);
+
     var oUserItems = recordSetToJSON(oResult, "items");
-
     var oUser = oUserItems.items[0];
 
-    pStmt = param.connection.prepareStatement(`select "${SEQ_NAME}".NEXTVAL as "ID" from dummy`);
-	var rs = pStmt.executeQuery();
-    pStmt.close();
+    sStatement = `select "${SEQ_NAME}".NEXTVAL as "ID" from dummy`;
+	var rs = executeQuery(param.connection, sStatement);
 
 	while (rs.next()) {
 		oUser.usid = rs.getString(1);
 	}
+    
+    var oCreateStatment = statementCreator.createInsertStatement(USER_TABLE, oUser);
+    executeUpdate(param.connection, oCreateStatment.sql, oCreateStatment.aValues);
 
-    for(var i = 0; i < 2; i++){
-		if(i < 1) {
-			var createStatment = statementCreator.createInsertStatement(USER_TABLE, oUser);
-            pStmt = param.connection.prepareStatement(createStatment.sql);			
-		} else {
-			pStmt = param.connection.prepareStatement("TRUNCATE TABLE \"" + after + "\"" );
-			pStmt.executeUpdate();
-			pStmt.close();
+    sStatement = "TRUNCATE TABLE \"" + afterTableName + "\"";
+    executeUpdate(param.connection, sStatement);
 
-			pStmt = param.connection.prepareStatement("insert into \"" + after + "\" values(?,?)");		
-		}
-
-		for (var j = 0; j < createStatment.aValues.length; j++){
-            pStmt.setString(j + 1, createStatment.aValues[j].toString());
-        }   
-
-		pStmt.executeUpdate();
-		pStmt.close();
-	}    
+    oCreateStatment = statementCreator.createInsertStatement(afterTableName, oUser)
+    executeUpdate(param.connection, oCreateStatment.sql, oCreateStatment.aValues); 
 }
 
-function userUpdate(param){
-    var after = param.afterTableName;
 
-    var pStmt = param.connection.prepareStatement("select * from \"" + after + "\"");
-    var oResult = pStmt.executeQuery();
-    pStmt.close();
+function userUpdate(param){
+    var afterTableName = param.afterTableName;
+
+    var sStatement = "select * from \"" + afterTableName + "\"";
+    var oResult = executeQuery(param.connection, sStatement);
 
     var oUserItems = recordSetToJSON(oResult, "items");
     var oUser = oUserItems.items[0];
 
-    var updateStatment = statementCreator.createUpdateStatement(USER_TABLE, oUser);
-    pStmt = param.connection.prepareStatement(updateStatment.sql);			
+    var oUpdateStatment = statementCreator.createUpdateStatement(USER_TABLE, oUser);
+    executeUpdate(param.connection, oUpdateStatment.sql, oUpdateStatment.aValues);
+}
 
-    for (var j = 0; j < updateStatment.aValues.length; j++){
-        pStmt.setString(j + 1, updateStatment.aValues[j].toString());
-    }  
+
+function executeQuery(connection, statement){
+    var pStmt = connection.prepareStatement(statement);
+    var oResult = pStmt.executeQuery();
+    pStmt.close(); 
+
+    return oResult;
+}
+
+
+function executeUpdate(connection, statement, valuesArray) {
+    var pStmt = connection.prepareStatement(statement);
+
+    if(valuesArray != undefined) {
+        for (var j = 0; j < valuesArray.length; j++){
+            pStmt.setString(j + 1, valuesArray[j].toString());
+        }  
+    }
 
     pStmt.executeUpdate();
-    pStmt.close();
+	pStmt.close(); 
 }
+
 
 function recordSetToJSON(rs, rsName){
     rsName = typeof rsName !== 'undefined' ? rsName : 'entries';
@@ -143,6 +149,7 @@ function recordSetToJSON(rs, rsName){
     return JSON.parse('{"'+ rsName +'" : [' + table	+']}');
 
 }
+
 
 function escapeSpecialChars(input) {
     if(typeof(input) != 'undefined' && input != null)
