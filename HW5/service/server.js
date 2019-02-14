@@ -5,7 +5,7 @@ var xsenv = require("@sap/xsenv");
 var port  = process.env.PORT || 3000;
 
 var options = {
-  	// anonymous : true,
+  	anonymous : true,
     redirectUrl : "/index.xsjs"
 };
 
