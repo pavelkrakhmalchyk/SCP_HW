@@ -12,15 +12,6 @@
 		"sourceTemplate": {
 			"id": "html5moduletemplates.basicSAPUI5ApplicationProjectModule",
 			"version": "1.40.12"
-		},
-		"dataSources": {
-			"mainService": {
-				"uri": "http://localhost:3000/odata/",
-				"type": "OData",
-				"settings": {
-					"odataVersion": "2.0"
-				}
-			}
 		}
 	},
 

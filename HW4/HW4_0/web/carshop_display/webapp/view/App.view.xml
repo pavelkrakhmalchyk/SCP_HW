@@ -3,10 +3,9 @@ controllerName="carshop_display.controller.App"
 	xmlns="sap.m"
     displayBlock="true"
 	xmlns:mvc="sap.ui.core.mvc">
-
         <App class="sapUiSizeCompact" id="carshop_display">
             <pages>
-                <Page title="Car shops">
+                <Page title="{i18n>appTitle}">
                     <content>
                         <Table
                             id="CarShopsList"
@@ -36,5 +35,4 @@ controllerName="carshop_display.controller.App"
                 </Page>
             </pages>
         </App>
-
 </mvc:View>
