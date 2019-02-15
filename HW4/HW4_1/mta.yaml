@@ -28,9 +28,9 @@ modules:
             memory: 128M
             disk_quota: 128M
     -
-        name: user_create
+        name: carshop_create
         type: html5
-        path: web/user_create
+        path: web/carshop_create
         parameters:
             disk-quota: 256M
             memory: 256M
@@ -40,9 +40,9 @@ modules:
             - {name: pk_dest}
             - {name: pk_conn}
     -
-        name: user_display
+        name: carshop_display
         type: html5
-        path: web/user_display
+        path: web/carshop_display
         parameters:
             disk-quota: 256M
             memory: 256M
@@ -73,7 +73,7 @@ modules:
         requires:
             - {name: pk_deployer}
         build-parameters:
-            requires: [{name: user_create, artifacts: ['./*'], target-path: resources/user_create},{name: user_display, artifacts: ['./*'], target-path: resources/user_display}]
+            requires: [{name: carshop_create, artifacts: ['./*'], target-path: resources/carshop_create},{name: carshop_display, artifacts: ['./*'], target-path: resources/carshop_display}]
         parameters:
             disk-quota: 256M
             memory: 128M

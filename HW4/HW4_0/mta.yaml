@@ -26,9 +26,9 @@ modules:
             memory: 128M
             disk_quota: 128M
     -
-        name: user_create
+        name: carshop_create
         type: html5
-        path: web/user_create
+        path: web/carshop_create
         parameters:
             disk-quota: 256M
             memory: 256M
@@ -38,9 +38,9 @@ modules:
             - {name: pk_dest}
             - {name: pk_conn}
     -
-        name: user_display
+        name: carshop_display
         type: html5
-        path: web/user_display
+        path: web/carshop_display
         parameters:
             disk-quota: 256M
             memory: 256M

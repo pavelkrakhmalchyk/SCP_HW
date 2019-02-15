@@ -1,0 +1,27 @@
+{
+  "welcomeFile": "carshop_display/index.html",
+  "authenticationMethod": "none",
+  "routes": [
+    {
+      "source": "^/carshop_display/(.*)$",
+      "target": "$1",
+      "localDir": "webapp",
+      "authenticationType": "xsuaa"
+    },
+    {
+      "source": "^/sapui5_resources/(.*)$",
+      "target": "$1",
+      "destination": "sapui5_provider"
+    },
+    {
+      "source": "^/s4c/(.*)",
+      "target": "/$1",
+      "destination": "S4C"
+    },
+    {
+      "source": "^/api/(.*)$",
+      "target": "/$1",
+      "destination": "API"
+    }
+  ]
+}

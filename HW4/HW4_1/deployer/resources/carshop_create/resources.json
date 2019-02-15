@@ -1,0 +1,56 @@
+{
+    "resources": [
+        {
+            "name": "Component-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "Component-preload.js",
+            "merged": true
+        },
+        {
+            "name": "Component.js"
+        },
+        {
+            "name": "di.code-validation.core_issues.json"
+        },
+        {
+            "name": "fragment\\ConfirmDeleteDialog.fragment.xml"
+        },
+        {
+            "name": "index.html"
+        },
+        {
+            "name": "manifest-bundle.zip"
+        },
+        {
+            "name": "manifest.json"
+        },
+        {
+            "name": "resources.json",
+            "merged": true
+        },
+        {
+            "name": "sap-ui-cachebuster-info.json"
+        },
+        {
+            "name": "tmp\\Component-preload.js",
+            "merged": true
+        },
+        {
+            "name": "tmp\\Component.js"
+        },
+        {
+            "name": "tmp\\index.html"
+        },
+        {
+            "name": "tmp\\manifest.json"
+        },
+        {
+            "name": "tmp-dbg\\Component.js"
+        },
+        {
+            "name": "xs-app.json"
+        }
+    ]
+}
