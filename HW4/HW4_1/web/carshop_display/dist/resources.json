@@ -22,6 +22,11 @@
             "name": "di.code-validation.core_issues.json"
         },
         {
+            "name": "i18n\\i18n_en.properties",
+            "raw": "i18n\\i18n.properties",
+            "locale": "_en"
+        },
+        {
             "name": "index.html"
         },
         {
@@ -46,6 +51,11 @@
         },
         {
             "name": "tmp\\controller\\App.controller.js"
+        },
+        {
+            "name": "tmp\\i18n\\i18n_en.properties",
+            "raw": "i18n\\i18n.properties",
+            "locale": "_en"
         },
         {
             "name": "tmp\\index.html"
