@@ -1,0 +1,50 @@
+<mvc:View
+controllerName="carshop_display.controller.App"
+	xmlns="sap.m"
+    displayBlock="true"
+	xmlns:mvc="sap.ui.core.mvc">
+        <App class="sapUiSizeCompact" id="carshop_display">
+            <pages>
+                <Page title="{i18n>appTitle}">
+                    <content>
+                        <Panel class="sapUiResponsiveMargin" width="auto">
+                            <content>
+                            <Button 
+                                    text="Create" 
+                                    press=".createCarShop"
+                                    class="sapUiSmallMarginEnd"/>	
+                            <Input 
+                                id="input_name" 
+                                value="Carshop name"
+                                width="20%" />	
+                            </content>
+                        </Panel>
+                        <Table
+                            id="CarShopsList"
+                            items="{
+                                path: 'odata>/CarShops'
+                            }">
+                            <columns>
+                                <Column>
+                                    <Text text="ID"/>
+                                </Column>
+                                <Column>
+                                    <Text text="Name"/>
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text text="{odata>shopid}"/>
+                                    </cells>
+                                    <cells>
+                                        <Text text="{odata>name}"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </content>
+                </Page>
+            </pages>
+        </App>
+</mvc:View>
