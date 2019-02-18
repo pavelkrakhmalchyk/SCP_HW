@@ -8,18 +8,46 @@ const carShopLib = new CarShopLib($.hdb.getConnection({
         try {
             switch ($.request.method) {
                 case $.net.http.GET : {
+                    /*
+                        if(!$.session.hasAppPrivilege("view")) {
+                            $.response.status = $.net.http.UNAUTHORIZATED;
+                            $.response.setBody(e.message);
+                            return;
+                        }
+                    */
                     carShopLib.doGet();
                     break;
                 }
                 case $.net.http.PUT : {
+                    /*
+                        if(!$.session.hasAppPrivilege("create")) {
+                            $.response.status = $.net.http.UNAUTHORIZATED;
+                            $.response.setBody(e.message);
+                            return;
+                        }
+                    */
                     carShopLib.doPut(JSON.parse($.request.body.asString()));
                     break;
                 }
                 case $.net.http.POST : {
+                    /*
+                        if(!$.session.hasAppPrivilege("create")) {
+                            $.response.status = $.net.http.UNAUTHORIZATED;
+                            $.response.setBody(e.message);
+                            return;
+                        }
+                    */
                     carShopLib.doPost(JSON.parse($.request.body.asString()));
                     break;
                 }
                 case $.net.http.DEL : {
+                    /*
+                        if(!$.session.hasAppPrivilege("create")) {
+                            $.response.status = $.net.http.UNAUTHORIZATED;
+                            $.response.setBody(e.message);
+                            return;
+                        }
+                    */
                     carShopLib.doDelete($.request.parameters.get("shopid"));
                     break;
                 }

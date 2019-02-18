@@ -30,7 +30,17 @@
             "name": "index.html"
         },
         {
+            "name": "manifest-bundle.zip"
+        },
+        {
             "name": "manifest.json"
+        },
+        {
+            "name": "resources.json",
+            "merged": true
+        },
+        {
+            "name": "sap-ui-cachebuster-info.json"
         },
         {
             "name": "tmp\\Component-preload.js",

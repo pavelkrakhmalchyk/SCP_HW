@@ -7,18 +7,6 @@ controllerName="carshop_display.controller.App"
             <pages>
                 <Page title="{i18n>appTitle}">
                     <content>
-                        <Panel class="sapUiResponsiveMargin" width="auto">
-                            <content>
-                            <Button 
-                                    text="Create" 
-                                    press=".createCarShop"
-                                    class="sapUiSmallMarginEnd"/>	
-                            <Input 
-                                id="input_name" 
-                                value="Carshop name"
-                                width="20%" />	
-                            </content>
-                        </Panel>
                         <Table
                             id="CarShopsList"
                             items="{

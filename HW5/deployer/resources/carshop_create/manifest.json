@@ -38,6 +38,10 @@
 	},
 
 	"sap.ui5": {
+		"rootView": {
+			"viewName": "carshop_create.view.App",
+			"type": "XML"
+		},
 		"dependencies": {
 			"minUI5Version": "1.60.1",
 			"libs": {
@@ -61,11 +65,6 @@
 					"bundleName": "carshop_create.i18n.i18n"
 				}
 			}
-		},
-		"resources": {
-			"css": [{
-				"uri": "css/style.css"
-			}]
 		}
 	}
 }

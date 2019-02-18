@@ -22,7 +22,7 @@ modules:
         requires:
             - {name: pk_db}
             - {name: pk_hdi}
-            - {name: pk_uaa}
+#            - {name: pk_uaa}
         provides:
             - {name: pk_service, properties: {url: '${default-url}'}}
         parameters:
