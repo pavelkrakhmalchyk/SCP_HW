@@ -1,0 +1,95 @@
+ID: HiMTA
+_schema-version: 2.1
+version: 0.0.1
+parameters:
+    deploy_mode: html5-repo
+modules:
+    -
+        name: db
+        type: hdb
+        path: db
+        requires:
+            - {name: pk_hdi}
+        provides:
+            - {name: pk_db}
+        parameters:
+            memory: 128M
+            disk_quota: 128M
+    - 
+        name: javarest
+        type: java
+        path: service/java
+        build-parameters:
+            builder: maven
+            maven-opts:
+                command: [ clean, install ]
+                defines:
+                    skipTests: true
+            build-result: target/leverx-spring-demo-0.0.1-SNAPSHOT.jar
+        parameters:
+            memory: 1024M
+            disk-quota: 512M
+        provides:
+            - {name: javarest, properties: {url: '${default-url}'}}
+        requires:
+            - {name: pk_hdi}
+            - {name: pk_dest}
+            - {name: pk_conn}
+            - {name: pk_uaa}
+    -
+        name: router
+        type: nodejs
+        path: router
+        parameters:
+            disk-quota: 256M
+            memory: 128M
+        properties:
+            XS_APP_LOG_LEVEL: debug
+        requires:
+            - {name: pk_dest}
+            - {name: pk_conn}
+            - {name: pk_uaa}
+            - {name: pk_router}
+            - {name: javarest, group: destinations, properties: {name: javarest, url: '~{url}', forwardAuthToken: true}}
+resources:
+    -
+        name: pk_uaa
+        parameters:
+            path: ./xs-security.json
+            service-plan: application
+            service: xsuaa
+        type: org.cloudfoundry.managed-service
+    -
+        name: pk_hdi
+        parameters:
+            service-plan: hdi-shared
+            service: hanatrial
+            config: {schema: PK}
+        properties:
+            hdi-container-name: '${service-name}'
+        type: com.sap.xs.hdi-container
+    -
+        name: pk_deployer
+        parameters:
+            service-plan: app-host
+            service: html5-apps-repo
+            config: {sizeLimit: 1}
+        type: org.cloudfoundry.managed-service
+    -
+        name: pk_router
+        parameters:
+            service-plan: app-runtime
+            service: html5-apps-repo
+        type: org.cloudfoundry.managed-service
+    -
+        name: pk_conn
+        type: org.cloudfoundry.managed-service
+        parameters:
+            service: connectivity
+            service-plan: lite
+    -
+        name: pk_dest
+        type: org.cloudfoundry.managed-service
+        parameters:
+            service: destination
+            service-plan: lite
