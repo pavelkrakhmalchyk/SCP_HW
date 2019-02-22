@@ -36,12 +36,12 @@ public class CarShopController {
 	}
 	
 	@DeleteMapping(value="/CarShop/{id}")
-	public void deleteUser(@PathVariable String id) {
+	public void deleteCarShop(@PathVariable String id) {
 		CarShopService.deleteCarShop(id);
 	}
 	
 	@PutMapping(value="/CarShop")
-	public void updateUser(@RequestBody CarShop CarShop) {
+	public void updateCarShop(@RequestBody CarShop CarShop) {
 		CarShopService.updateCarShop(CarShop);
 	}
 	

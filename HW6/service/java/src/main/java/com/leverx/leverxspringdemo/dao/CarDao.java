@@ -15,30 +15,33 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.leverx.leverxspringdemo.dao.intfce.ICarShopDao;
-import com.leverx.leverxspringdemo.domain.CarShop;
+import com.leverx.leverxspringdemo.dao.intfce.ICarDao;
+import com.leverx.leverxspringdemo.domain.Car;
 
 @Repository
-public class CarShopDao implements ICarShopDao {
+public class CarDao implements ICarDao {
 
-	private static final Logger logger = LoggerFactory.getLogger(CarShopDao.class);
+	private static final Logger logger = LoggerFactory.getLogger(CarDao.class);
 
 	@Autowired
 	private DataSource dataSource;
 
 	@Override
-	public Optional<CarShop> getById(String id) {
-		Optional<CarShop> entity = null;
+	public Optional<Car> getById(String id) {
+		Optional<Car> entity = null;
 		try (Connection conn = dataSource.getConnection();
 				PreparedStatement stmnt = conn.prepareStatement(
-						"SELECT TOP 1 \"shopid\", \"name\" FROM \"HiMTA::CarShop\" WHERE \"shopid\" = ?")) {
+						"SELECT TOP 1 * FROM \"HiMTA::ExtraInfo.Car\" WHERE \"crid\" = ?")) {
 			stmnt.setString(1, id);
 			ResultSet result = stmnt.executeQuery();
 			if (result.next()) {
-				CarShop CarShop = new CarShop();
-				CarShop.setId(id);
-				CarShop.setName(result.getString("name"));
-				entity = Optional.of(CarShop);
+				Car Car = new Car();
+				Car.setCrid(result.getString("crid"));
+				Car.setShopid(result.getString("shopid"));
+				Car.setName(result.getString("name"));
+				Car.setModel(result.getString("model"));
+				Car.setColor(result.getString("color"));
+				entity = Optional.of(Car);
 			} else {
 				entity = Optional.empty();
 			}
@@ -49,30 +52,36 @@ public class CarShopDao implements ICarShopDao {
 	}
 
 	@Override
-	public List<CarShop> getAll() {
-		List<CarShop> CarShopList = new ArrayList<CarShop>();
+	public List<Car> getAll() {
+		List<Car> CarList = new ArrayList<Car>();
 		try (Connection conn = dataSource.getConnection();
 				PreparedStatement stmnt = conn
-						.prepareStatement("SELECT * FROM \"HiMTA::CarShop\"")) {
+						.prepareStatement("SELECT * FROM \"HiMTA::ExtraInfo.Car\"")) {
 			ResultSet result = stmnt.executeQuery();
 			while (result.next()) {
-				CarShop CarShop = new CarShop();
-				CarShop.setId(result.getString("shopid"));
-				CarShop.setName(result.getString("name"));
-				CarShopList.add(CarShop);
+				Car Car = new Car();
+				Car.setCrid(result.getString("crid"));
+				Car.setShopid(result.getString("shopid"));
+				Car.setName(result.getString("name"));
+				Car.setModel(result.getString("model"));
+				Car.setColor(result.getString("color"));
+				CarList.add(Car);
 			}
 		} catch (SQLException e) {
 			logger.error("Error while trying to get list of entities: " + e.getMessage());
 		}
-		return CarShopList;
+		return CarList;
 	}
 
 	@Override
-	public void save(CarShop entity) {
+	public void save(Car entity) {
 		try (Connection conn = dataSource.getConnection();
 				PreparedStatement stmnt = conn.prepareStatement(
-						"INSERT INTO \"HiMTA::CarShop\"(\"name\") VALUES (?)")) {
-			stmnt.setString(1, entity.getName());
+						"INSERT INTO \"HiMTA::ExtraInfo.Car\"(\"shopid\", \"name\", \"model\", \"color\") VALUES (?, ?, ?, ?)")) {
+			stmnt.setString(1, entity.getShopid());
+			stmnt.setString(2, entity.getName());
+			stmnt.setString(3, entity.getModel());
+			stmnt.setString(4, entity.getColor());
 			stmnt.execute();
 		} catch (SQLException e) {
 			logger.error("Error while trying to add entity: " + e.getMessage());
@@ -82,7 +91,7 @@ public class CarShopDao implements ICarShopDao {
 	@Override
 	public void delete(String id) {
 		try (Connection conn = dataSource.getConnection();
-				PreparedStatement stmnt = conn.prepareStatement("DELETE FROM \"HiMTA::CarShop\" WHERE \"shopid\" = ?")) {
+				PreparedStatement stmnt = conn.prepareStatement("DELETE FROM \"HiMTA::ExtraInfo.Car\" WHERE \"crid\" = ?")) {
 			stmnt.setString(1, id);
 			stmnt.execute();
 		} catch (SQLException e) {
@@ -91,12 +100,15 @@ public class CarShopDao implements ICarShopDao {
 	}
 
 	@Override
-	public void update(CarShop entity) {
+	public void update(Car entity) {
 		try (Connection conn = dataSource.getConnection();
 				PreparedStatement stmnt = conn.prepareStatement(
-						"UPDATE \"HiMTA::CarShop\" SET \"name\" = ? WHERE \"shopid\" = ?")) {
-			stmnt.setString(1, entity.getName());
-			stmnt.setString(2, entity.getId());
+						"UPDATE \"HiMTA::ExtraInfo.Car\" SET \"shopid\" = ?, \"name\" = ?, \"model\" = ?,  \"color\" = ?,  WHERE \"crid\" = ?")) {
+			stmnt.setString(1, entity.getShopid());
+			stmnt.setString(2, entity.getName());
+			stmnt.setString(3, entity.getModel());
+			stmnt.setString(4, entity.getColor());
+			stmnt.setString(5, entity.getCrid());
 			stmnt.executeUpdate();
 		} catch (SQLException e) {
 			logger.error("Error while trying to update entity: " + e.getMessage());
