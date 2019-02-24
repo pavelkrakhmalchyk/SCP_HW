@@ -1,0 +1,57 @@
+{
+  "format_version": 1,
+  "imports": [
+    {
+      "target_table": "HiMTA::CarShop",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "HiMTA::CarShop.csv",
+        "has_header": true
+      },
+      "import_settings": {
+        "import_columns": [
+          "shopid",
+          "name",
+          "update_time",
+          "create_time"
+        ]
+      }
+    },
+    {
+      "target_table": "HiMTA::ExtraInfo.Address",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "HiMTA::Address.csv",
+        "has_header": true
+      },
+      "import_settings": {
+        "import_columns": [
+          "adrid",
+					"shopid",
+					"city",
+					"strt",
+					"hnum"
+        ]
+      }
+    },
+    {
+      "target_table": "HiMTA::ExtraInfo.Car",
+      "source_data": {
+        "data_type": "CSV",
+        "file_name": "HiMTA::Car.csv",
+        "has_header": true
+      },
+      "import_settings": {
+        "import_columns": [
+					"crid",
+          "shopid",
+          "name",
+          "model",
+          "color",
+          "update_time",
+          "create_time"
+        ]
+      }
+    }
+  ]
+}

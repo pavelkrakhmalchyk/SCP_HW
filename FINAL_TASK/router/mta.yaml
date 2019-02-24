@@ -1,0 +1,40 @@
+ID: HiMTA_router_service
+_schema-version: 2.1
+version: 0.0.1
+
+modules:
+    -
+        name: router
+        type: nodejs
+        path: ./
+        parameters:
+            disk-quota: 256M
+            memory: 256M
+        properties:
+            XS_APP_LOG_LEVEL: debug
+        requires:
+            - {name: pk_dest}
+            - {name: pk_conn}
+            - {name: pk_uaa}
+            - {name: pk_router}
+            - {name: pk_service, group: destinations, properties: {name: pk_service, url: '~{url}'}}
+resources:
+    -
+        name: pk_service
+        type: configuration
+        parameters:
+            provider-nid: mta
+            provider-id: 'HiMTA_nodejs_service:pk_service'
+            version: '>=0.0.1'
+    -
+        name: pk_dest
+        type: org.cloudfoundry.existing-service
+    -
+        name: pk_conn
+        type: org.cloudfoundry.existing-service
+    -
+        name: pk_uaa
+        type: org.cloudfoundry.existing-service
+    -
+        name: pk_router
+        type: org.cloudfoundry.existing-service

@@ -1,0 +1,25 @@
+<View
+	xmlns="sap.m"
+	xmlns:layout="sap.ui.layout"
+	controllerName="carshops.controller.EditCarShop">
+	<Page
+        id="carshopInfoPage"
+        title="Edit carshop"
+        navButtonPress="onNavBack"
+		showNavButton="true">
+		<content>
+            <Panel class="sapUiResponsiveMargin" width="auto">
+                <content>
+                <Button 
+                        text="Save" 
+                        press=".save"
+                        class="sapUiSmallMarginEnd"/>	
+                <Input 
+                    id="input_name" 
+                    value="{odata>name}"
+                    width="20%" />	
+                </content>
+            </Panel>
+		</content>
+	</Page>
+</View>

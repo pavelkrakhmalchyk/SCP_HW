@@ -1,0 +1,87 @@
+var statementCreator = class StatementCreator () {
+    
+    static createInsertStatement (sTableName, oValueObject) {
+        let statement = {
+            aParams: [],
+            aValues: [],
+            sql: "",    
+        };
+
+        let sColumnList = '', sValueList = '';
+
+        for (let key in oValueObject){
+            sColumnList += `"${key}", `;
+            statement.aParams.push(key);
+
+            sValueList += "?, ";
+            statement.aValues.push(oValueObject[key]);
+        }
+
+        sColumnList = sColumnList.slice(0, -2);
+        sValueList = sValueList.slice(0, -2);
+
+        statement.sql = `insert into "${sTableName}" (${sColumnList}) values (${sValueList})`;
+
+        $.trace.error("sql to insert: " + statement.sql);
+        return statement;
+    };
+
+
+    static createUpdateStatement (sTableName, oValueObject) {
+        let statement = {
+            aParams: [],
+            aValues: [],
+            sql: "",
+        };
+
+        let sSetClause = '';
+
+        let keys = Object.keys(oValueObject);
+        let values = Object.values(oValueObject);
+
+        for (var i = 1; i < keys.length; i++){
+            statement.aParams.push(keys[i]);
+            sSetClause += `"${keys[i]}" = ?, `;
+
+            statement.aValues.push(oValueObject[keys[i]]);
+        }
+
+        statement.aValues.push(values[0]);
+
+        sSetClause = sSetClause.slice(0, -2);
+
+        statement.sql = `update "${sTableName}" set ${sSetClause} where "${keys[0]}" = ?`; 
+
+        $.trace.error("sql to update: " + statement.sql);
+        return statement;
+    };
+
+
+    static createDeleteStatement (sTableName, oValueObject) {
+        let statement = {
+            aParams: [],
+            aValues: [],
+            sql: "",
+        };
+
+        let sWhereClause = '';
+
+        for (let key in oValueObject){
+            sWhereClause += `"${key}" = ? and `;
+            statement.aParams.push(key);
+
+            statement.aValues.push(oValueObject[key]);
+        }
+
+        sWhereClause = sWhereClause.slice(0, -5);
+        if (sWhereClause.length > 0) {
+            sWhereClause = "where " + sWhereClause;
+        }
+
+        statement.sql = `delete from "${sTableName}" ${sWhereClause}`;
+
+        $.trace.error("sql to delete: " + statement.sql);
+        return statement;
+    };
+};
+

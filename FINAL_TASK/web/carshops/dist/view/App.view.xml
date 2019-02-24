@@ -1,0 +1,38 @@
+<mvc:View
+controllerName="carshops.controller.App"
+	xmlns="sap.m"
+    displayBlock="true"
+	xmlns:mvc="sap.ui.core.mvc">
+        <App class="sapUiSizeCompact" id="carshops">
+            <pages>
+                <Page title="{i18n>appTitle}">
+                    <content>
+                        <Table
+                            id="CarShopsList"
+                            items="{
+                                path: 'odata>/CarShops'
+                            }">
+                            <columns>
+                                <Column>
+                                    <Text text="ID"/>
+                                </Column>
+                                <Column>
+                                    <Text text="Name"/>
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text text="{odata>shopid}"/>
+                                    </cells>
+                                    <cells>
+                                        <Text text="{odata>name}"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </content>
+                </Page>
+            </pages>
+        </App>
+</mvc:View>

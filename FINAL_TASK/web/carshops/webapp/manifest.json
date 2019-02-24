@@ -1,0 +1,144 @@
+{
+	"_version": "1.8.0",
+	"sap.app": {
+		"id": "carshops",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"sourceTemplate": {
+			"id": "html5moduletemplates.basicSAPUI5ApplicationProjectModule",
+			"version": "1.40.12"
+		},
+		"dataSources": {
+			"mainService": {
+				"uri": "https://p2001081147trial-trial-dev-router.cfapps.eu10.hana.ondemand.com/api/xsodata/himta.xsodata",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0"
+				}
+			}
+		}
+	},
+
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": [
+			"sap_hcb",
+			"sap_belize"
+
+		]
+	},
+	"sap.ui5": {
+		"rootView": {
+			"viewName": "carshops.view.App",
+			"type": "XML",
+			"async": true
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "carshops.view",
+				"controlId": "rootControl",
+				"async": true
+			},
+			"targets": {
+				"carshops": {
+					"viewName": "CarShops",
+					"controlAggregation": "masterPages",
+					"viewLevel": 0
+				},
+				"carshopsDetails": {
+					"viewName": "Details",
+					"controlAggregation": "detailPages",
+					"viewLevel": 1
+				},
+				"addNewCarShop": {
+					"viewName": "AddNewCarShop",
+					"controlAggregation": "detailPages",
+					"viewLevel": 1
+				},
+				"editCarShop": {
+					"viewName": "EditCarShop",
+					"controlAggregation": "detailPages",
+					"viewLevel": 1
+				}
+			},
+			"routes": [
+				{
+					"name": "carshops",
+					"pattern": "",
+					"target": ["carshops"]
+				},
+				{
+					"name": "carshopsDetails",
+					"pattern": "carshops/:shopid:",
+					"target": [
+						"carshops",
+						"carshopsDetails"
+					]
+				},
+				{
+					"name": "addNewCarShop",
+					"pattern": "addNewCarShop",
+					"target": [
+						"carshops",
+						"addNewCarShop"
+					]
+				},
+				{
+					"name": "editCarShop",
+					"pattern": "editCarShop/:shopid:",
+					"target": [
+						"carshops",
+						"editCarShop"
+					]
+				}
+			]
+		},
+		"dependencies": {
+			"minUI5Version": "1.60.1",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.m": {},
+				"sap.ui.layout": {},
+				"sap.ushell": {},
+				"sap.collaboration": {},
+				"sap.ui.comp": {},
+				"sap.uxap": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"odata": {
+				"dataSource": "mainService"
+			},
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "carshops.i18n.i18n"
+				}
+			}
+		}
+	}
+}

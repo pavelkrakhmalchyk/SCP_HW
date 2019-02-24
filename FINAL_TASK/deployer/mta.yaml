@@ -1,0 +1,35 @@
+ID: HiMTA
+_schema-version: 2.1
+version: 0.0.1
+parameters:
+    deploy_mode: html5-repo
+modules:
+    -
+        name: deployer
+        type: com.sap.html5.application-content
+        path: ./
+        requires:
+            - {name: pk_deployer}
+        build-parameters:
+            requires: [{name: carshops, artifacts: ['./*'], target-path: resources/carshops}]
+        parameters:
+            disk-quota: 256M
+            memory: 128M
+    -
+        name: carshops
+        type: html5
+        path: ../web/carshops
+        parameters:
+            disk-quota: 256M
+            memory: 256M
+        build-parameters:
+            builder: grunt
+        requires:
+            - {name: pk_uaa}
+resources:
+    -
+        name: pk_uaa
+        type: org.cloudfoundry.existing-service
+    -
+        name: pk_deployer
+        type: org.cloudfoundry.existing-service

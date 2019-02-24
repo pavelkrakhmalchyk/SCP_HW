@@ -1,0 +1,17 @@
+namespace HiMTA;
+
+using HiMTA::ExtraInfo.Address;
+using HiMTA::ExtraInfo.Car;
+
+
+entity CarShop {
+    @Comment: 'Id of Car Shop'
+    key shopid : String(4);
+    @Comment: 'Name'
+    name : String(100);
+    update_time : UTCDateTime;
+    create_time : UTCDateTime;
+
+    toCars : Association[*] to Car on toCars.shopid = shopid;
+    toAddress : Association[1] to Address on toAddress.shopid = shopid;
+};

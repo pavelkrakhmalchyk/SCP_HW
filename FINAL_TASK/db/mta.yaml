@@ -1,0 +1,22 @@
+ID: HiMTA_db_service
+_schema-version: 2.1
+version: 0.0.1
+
+modules:
+    -
+        name: db
+        type: hdb
+        path: ./
+        requires:
+            - {name: pk_hdi}
+        provides:
+            - 
+              name: pk_db
+              public: true
+        parameters:
+            memory: 128M
+            disk_quota: 128M
+resources:
+    -
+        name: pk_hdi
+        type: org.cloudfoundry.existing-service

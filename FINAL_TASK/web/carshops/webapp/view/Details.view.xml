@@ -1,0 +1,100 @@
+<View
+	xmlns="sap.m"
+	xmlns:layout="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+	controllerName="carshops.controller.Details">
+	<Page
+        id="carshopInfoPage"
+        title="{odata>name}">
+		<content>
+            <Panel
+				id="carshopInfoPanel">
+                <headerToolbar>
+					<Toolbar>
+						<Title text="Carshop address" level="H2"/>
+                        <ToolbarSpacer/>
+                        <Button 
+                            icon="sap-icon://edit" 
+                            tooltip="Enable / Disable edit mode"
+                            press="onEditAddressPress" />
+					</Toolbar>
+				</headerToolbar>
+				<content>
+					<f:SimpleForm id="adressForm">
+						<f:content>
+							<Label text="City"/>
+							<Text text="{odata>toAddress/city}"/>
+							<Label text="Street"/>
+							<Text text="{odata>toAddress/strt}"/>
+							<Label text="House number"/>
+							<Text text="{odata>toAddress/hnum}"/>
+						</f:content>
+					</f:SimpleForm>
+				</content>
+			</Panel>
+            <Table
+                id="carsTable"
+                items="{
+                    path: 'odata>toCars'
+                }"
+                headerText="Cars"
+                mode="MultiSelect">
+                <headerToolbar>
+					<Toolbar>
+						<Title text="Cars" level="H2"/>
+						<ToolbarSpacer/>
+						<Button
+							tooltip="Add new car"
+							icon="sap-icon://add"
+							press="onAddCarPress" 
+                            visible="{path:'editMode>/cars/enabled', formatter:'.formatter.stringToBooleanReverse'}" />
+                        <Button 
+                            icon="sap-icon://edit" 
+                            tooltip="Enable / Disable edit mode" 
+                            press="onEditCarsPress" 
+                            visible="{path:'editMode>/cars/enabled', formatter:'.formatter.stringToBooleanReverse'}" />
+						<Button
+							tooltip="Delete selected cars"
+							icon="sap-icon://delete"
+							press="onDeleteCarsPress" 
+                            visible="{path:'editMode>/cars/enabled', formatter:'.formatter.stringToBooleanReverse'}"/>
+                        <Button 
+                            text="Save" 
+                            type="Transparent"
+							press="onSaveCars" 
+                            visible="{path:'editMode>/cars/enabled', formatter:'.formatter.stringToBoolean'}" />
+						<Button 
+                            text="Cancel" 
+                            type="Transparent"
+							press="onCancelCars" 
+                            visible="{path:'editMode>/cars/enabled', formatter:'.formatter.stringToBoolean'}" />
+					</Toolbar>
+				</headerToolbar>
+                <columns>
+                    <Column>
+                        <Text text="Name"/>
+                    </Column>
+                    <Column>
+                        <Text text="Model"/>
+                    </Column>
+                    <Column>
+                        <Text text="Color"/>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="columnListItem">
+                        <cells>
+                            <Text text="{odata>name}"/>
+                        </cells>
+                        <cells>
+                            <Text text="{odata>model}"/>
+                        </cells>
+                        <cells>
+                            <Text text="{odata>color}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+		</content>
+	</Page>
+</View>

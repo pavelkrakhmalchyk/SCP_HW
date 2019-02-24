@@ -1,0 +1,28 @@
+ID: HiMTA_nodejs_service
+_schema-version: 2.1
+version: 0.0.1
+
+modules:
+    -
+        name: service
+        type: nodejs
+        path: ./
+        requires:
+            - {name: pk_db}
+            - {name: pk_hdi}
+        provides:
+            - {name: pk_service, public: true, properties: {url: '${default-url}'}}
+        parameters:
+            memory: 128M
+            disk_quota: 128M
+resources:
+    -
+        name: pk_db
+        type: configuration
+        parameters:
+            provider-nid: mta
+            provider-id: 'HiMTA_db_service:pk_db'
+            version: '>=0.0.1'
+    -
+        name: pk_hdi
+        type: org.cloudfoundry.existing-service
