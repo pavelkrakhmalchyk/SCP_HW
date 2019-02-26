@@ -11,13 +11,6 @@ sap.ui.define([
         onInit : function () {
             this.getOwnerComponent().getRouter().getRoute("carshopsDetails").attachPatternMatched(this._onRouteMatched, this);
 
-            var oEditModeModel = new JSONModel({
-                cars: {
-                    "enabled": "false"
-                }
-            });
-            this.getView().setModel(oEditModeModel, "editMode");
-
             this.oTable = this.getView().byId("carsTable");
             this.oReadOnlyTemplate = this.getView().byId("columnListItem");
             this.oEditableTemplate = new sap.m.ColumnListItem({
@@ -48,30 +41,28 @@ sap.ui.define([
                  }
             });
         },
-        
-        rebindTable: function(oTemplate, sKeyboardMode) {
-			this.oTable.bindItems({
-				path: "toCars",
-                template: oTemplate,
-                model: "odata"
-			}).setKeyboardMode(sKeyboardMode);
+
+        onEditAddressPress: function() {
+            this.getOwnerComponent().getRouter()
+				.navTo("editAddress",
+					{shopid: this.carShopId});
         },
         
         onEditCars: function() {
             this._onOffEditMode("cars", true);
-            this.rebindTable(this.oEditableTemplate, "Edit");
+            this._rebindTable(this.oEditableTemplate, "Edit");
         },
         
         onSaveCars: function() {
             this._onOffEditMode("cars", false);
             this.getView().getModel("odata").submitChanges();
-            this.rebindTable(this.oReadOnlyTemplate, "Navigation");
+            this._rebindTable(this.oReadOnlyTemplate, "Navigation");
         },
 
         onCancelCars: function() {
             this._onOffEditMode("cars", false);
             this.getView().getModel("odata").resetChanges();
-            this.rebindTable(this.oReadOnlyTemplate, "Navigation");
+            this._rebindTable(this.oReadOnlyTemplate, "Navigation");
         },
 
         onAddCar: function() {
@@ -93,14 +84,22 @@ sap.ui.define([
             });
         },
 
+        _rebindTable: function(oTemplate, sKeyboardMode) {
+			this.oTable.bindItems({
+				path: "toCars",
+                template: oTemplate,
+                model: "odata"
+			}).setKeyboardMode(sKeyboardMode);
+        },
+
         _onOffEditMode: function(sEssence, enable){
-            var oEditModeModel = this.getView().getModel("editMode");
+            var oEditModeModel = this.getView().getModel("config");
 
             if (enable === true){
-                oEditModeModel.setProperty("/" + sEssence + "/enabled", "true");
+                oEditModeModel.setProperty("/editMode/" + sEssence + "/enabled", true);
             }
             else if (enable === false){
-                oEditModeModel.setProperty("/" + sEssence + "/enabled", "false");
+                oEditModeModel.setProperty("/editMode/" + sEssence + "/enabled", false);
             }
         }
 

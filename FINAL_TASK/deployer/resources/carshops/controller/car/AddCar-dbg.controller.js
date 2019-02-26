@@ -26,7 +26,7 @@ sap.ui.define([
         },
 
         onCreateCar: function () {
-			var that = this;
+            var that = this;
             var car = this.getView().getModel("carModel").oData;
 
             if (car.name != "" && car.model != "" && car.color != ""){
@@ -45,7 +45,7 @@ sap.ui.define([
                         that.onNavBack();
                     }
                 });
-            }else {
+            } else {
                 MessageToast.show("Fill all fields, please");	
             }
 		},

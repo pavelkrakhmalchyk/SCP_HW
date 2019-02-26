@@ -4,7 +4,7 @@ service namespace "HiMTA"{
                 navigates("CarShops_2_Address" as "toAddress", "CarShops_2_Cars" as "toCars")
             create using "xsodata.exits:odataCarShopsExits.xsjslib::carShopCreate"
             update using "xsodata.exits:odataCarShopsExits.xsjslib::carShopUpdate"
-            delete forbidden;
+            delete using "xsodata.exits:odataCarShopsExits.xsjslib::carShopDelete";
 
     "HiMTA::ExtraInfo.Address" as "Address"
             create forbidden

@@ -1,5 +1,5 @@
-shopid,name,update_time,create_time
-0001,Supercars,1980-02-01 00:00:00,1980-02-01 00:00:00
-0002,Cars for you,1980-02-01 00:00:00,1980-02-01 00:00:00
-0003,Topshop,1980-02-01 00:00:00,1980-02-01 00:00:00
-0004,All cars,1980-02-01 00:00:00,1980-02-01 00:00:00
+shopid,name
+0001,Supercars
+0002,Cars for you
+0003,Topshop
+0004,All cars

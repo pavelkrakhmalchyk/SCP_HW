@@ -11,9 +11,7 @@
       "import_settings": {
         "import_columns": [
           "shopid",
-          "name",
-          "update_time",
-          "create_time"
+          "name"
         ]
       }
     },

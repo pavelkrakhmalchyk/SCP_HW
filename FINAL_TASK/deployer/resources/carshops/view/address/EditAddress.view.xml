@@ -1,0 +1,46 @@
+<View
+	xmlns="sap.m"
+	xmlns:layout="sap.ui.layout"
+	controllerName="carshops.controller.address.EditAddress"
+    xmlns:f="sap.ui.layout.form">
+	<Page
+        id="carshopInfoPage"
+        title="{i18n>editAddressPageTitle}"
+        navButtonPress="onNavBack"
+		showNavButton="true">
+		<content>   
+            <VBox class="sapUiSmallMargin">
+                <f:SimpleForm 
+                editable="true"
+                layout="ResponsiveGridLayout"
+                labelSpanXL="3"
+                labelSpanL="3"
+                labelSpanM="3"
+                labelSpanS="12"
+                emptySpanXL="4"
+                emptySpanL="4"
+                emptySpanM="4"
+                emptySpanS="0"
+                columnsXL="6"
+                columnsL="6"
+                columnsM="6">
+                    <f:content>
+                        <Label text="{i18n>city}" />
+                        <Input value="{odata>city}" />
+
+                        <Label text="{i18n>street}" />
+                        <Input value="{odata>strt}" />
+                        
+                        <Label text="{i18n>houseNumber}" />
+                        <Input value="{odata>hnum}" />
+                        
+                        <Button 
+                            text="{i18n>saveButtonText}" 
+                            press=".onSaveAddress"
+                            class="sapUiSmallMarginEnd"/>
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+		</content>
+	</Page>
+</View>

@@ -28,10 +28,6 @@
 							<Text text="{odata>toAddress/strt}"/>
 							<Label text="{i18n>houseNumber}"/>
 							<Text text="{odata>toAddress/hnum}"/>
-                            <Label text="{i18n>updatedAt}"/>
-							<Text text="{path:'odata>update_time', formatter:'.formatter.removetime'}"/>
-                            <Label text="{i18n>createdAt}"/>
-							<Text text="{path:'odata>create_time', formatter:'.formatter.removetime'}"/>
 						</f:content>
 					</f:SimpleForm>
 				</content>
@@ -51,22 +47,22 @@
 							tooltip="{i18n>addCarTooltip}"
 							icon="sap-icon://add"
 							press="onAddCar" 
-                            visible="{path:'editMode>/cars/enabled', formatter:'.formatter.stringToBooleanReverse'}" />
+                            visible="{path:'config>/editMode/cars/enabled', formatter:'.formatter.booleanReverse'}" />
                         <Button 
                             tooltip="{i18n>editModeTooltip}" 
                             icon="sap-icon://edit" 
                             press="onEditCars" 
-                            visible="{path:'editMode>/cars/enabled', formatter:'.formatter.stringToBooleanReverse'}" />
+                            visible="{path:'config>/editMode/cars/enabled', formatter:'.formatter.booleanReverse'}" />
                         <Button 
                             text="{i18n>saveButtonText}" 
                             type="Transparent"
 							press="onSaveCars" 
-                            visible="{path:'editMode>/cars/enabled', formatter:'.formatter.stringToBoolean'}" />
+                            visible="{config>/editMode/cars/enabled}" />
 						<Button 
                             text="{i18n>cancelButtonText}" 
                             type="Transparent"
 							press="onCancelCars" 
-                            visible="{path:'editMode>/cars/enabled', formatter:'.formatter.stringToBoolean'}" />
+                            visible="{config>/editMode/cars/enabled}" />
 					</Toolbar>
 				</headerToolbar>
                 <columns>
@@ -80,10 +76,10 @@
                         <Text text="{i18n>color}"/>
                     </Column>
                     <Column>
-                        <Text text="{i18n>createdAt}"/>
+                        <Text text="{i18n>updatedAt}"/>
                     </Column>
                     <Column>
-                        <Text text="{i18n>updatedAt}"/>
+                        <Text text="{i18n>createdAt}"/>
                     </Column>
                 </columns>
                 <items>
@@ -98,10 +94,10 @@
                             <Text text="{odata>color}"/>
                         </cells>
                         <cells>
-                            <Text text="{path:'odata>create_time', formatter:'.formatter.removetime'}"/>
+                            <Text text="{path:'odata>update_time', formatter:'.formatter.removetime'}"/>
                         </cells>
                         <cells>
-                            <Text text="{path:'odata>update_time', formatter:'.formatter.removetime'}"/>
+                            <Text text="{path:'odata>create_time', formatter:'.formatter.removetime'}"/>
                         </cells>
                     </ColumnListItem>
                 </items>

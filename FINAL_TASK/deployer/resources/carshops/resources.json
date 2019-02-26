@@ -12,6 +12,13 @@
             "name": "Component.js"
         },
         {
+            "name": "controller\\address\\EditAddress-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "controller\\address\\EditAddress.controller.js"
+        },
+        {
             "name": "controller\\car\\AddCar-dbg.controller.js",
             "isDebug": true
         },
@@ -63,6 +70,9 @@
             "name": "manifest.json"
         },
         {
+            "name": "model\\config.json"
+        },
+        {
             "name": "model\\formatter-dbg.js",
             "isDebug": true
         },
@@ -82,6 +92,9 @@
         },
         {
             "name": "tmp\\Component.js"
+        },
+        {
+            "name": "tmp\\controller\\address\\EditAddress.controller.js"
         },
         {
             "name": "tmp\\controller\\car\\AddCar.controller.js"
@@ -109,7 +122,13 @@
             "name": "tmp\\manifest.json"
         },
         {
+            "name": "tmp\\model\\config.json"
+        },
+        {
             "name": "tmp\\model\\formatter.js"
+        },
+        {
+            "name": "tmp\\view\\address\\EditAddress.view.xml"
         },
         {
             "name": "tmp\\view\\App.view.xml"
@@ -133,6 +152,9 @@
             "name": "tmp-dbg\\Component.js"
         },
         {
+            "name": "tmp-dbg\\controller\\address\\EditAddress.controller.js"
+        },
+        {
             "name": "tmp-dbg\\controller\\car\\AddCar.controller.js"
         },
         {
@@ -149,6 +171,9 @@
         },
         {
             "name": "tmp-dbg\\model\\formatter.js"
+        },
+        {
+            "name": "view\\address\\EditAddress.view.xml"
         },
         {
             "name": "view\\App.view.xml"

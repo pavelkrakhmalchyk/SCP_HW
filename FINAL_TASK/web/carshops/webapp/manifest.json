@@ -84,6 +84,11 @@
 					"viewName": "car.AddCar",
 					"controlAggregation": "detailPages",
 					"viewLevel": 2
+				},
+				"editAddress": {
+					"viewName": "address.EditAddress",
+					"controlAggregation": "detailPages",
+					"viewLevel": 2
 				}
 			},
 			"routes": [
@@ -123,6 +128,14 @@
 						"carshops",
 						"addCar"
 					]
+				},
+				{
+					"name": "editAddress",
+					"pattern": "carshops/:shopid:/editAddress",
+					"target": [
+						"carshops",
+						"editAddress"
+					]
 				}
 			]
 		},
@@ -155,7 +168,11 @@
 				"settings": {
 					"bundleName": "carshops.i18n.i18n"
 				}
-			}
+			},
+			"config": {
+                "type": "sap.ui.model.json.JSONModel",
+                "uri": "./model/config.json"
+            }
 		}
 	}
 }

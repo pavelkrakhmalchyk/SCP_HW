@@ -15,7 +15,7 @@
                         press=".onSaveCarShop"
                         class="sapUiSmallMarginEnd"/>	
                 <Input 
-                    value="{carshopModel>/name}"
+                    value="{odata>name}"
                     width="20%" />	
                 </content>
             </Panel>

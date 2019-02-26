@@ -15,6 +15,7 @@ const carShopLib = new CarShopLib($.hdb.getConnection({
                     carShopLib.doPut(JSON.parse($.request.body.asString()));
                     break;
                 }
+                case $.net.http.POST : {
                     carShopLib.doPost(JSON.parse($.request.body.asString()));
                     break;
                 }

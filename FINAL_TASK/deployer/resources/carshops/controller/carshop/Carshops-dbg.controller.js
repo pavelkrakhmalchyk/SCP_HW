@@ -10,9 +10,15 @@ sap.ui.define([
 
         onUpdateFinished: function(oEvent) {
             var oList = oEvent.getSource();
+            var items = oList.getItems();
 
             if (oList.getSelectedItem() === null) {
-                this._selectNewCarshop(0);
+                oList.setSelectedItem(items[0], true);
+
+                var sShopId = items[0].getBindingContext("odata").getProperty("shopid");
+                this.getOwnerComponent().getRouter()
+				.navTo("carshopsDetails",
+					{shopid: sShopId});
             }
         },
         
@@ -20,7 +26,7 @@ sap.ui.define([
 			var sShopId = oEvent.getSource().getSelectedItem().getBindingContext("odata").getProperty("shopid");
 			this.getOwnerComponent().getRouter()
 				.navTo("carshopsDetails",
-					{shopid:sShopId});
+					{shopid: sShopId});
         },
         
         onAddCarShopPress: function(oEvent) {
@@ -38,51 +44,24 @@ sap.ui.define([
         onDeleteCarShopPress: function(oEvent) {
             var that = this;
 
-            var selItem = this.getView().byId("carshops").getSelectedItem();
+            var oList = this.getView().byId("carshops");
+            var selItem = oList.getSelectedItem();
             var sShopId = selItem.getBindingContext("odata").getProperty("shopid");
 
-            $.ajax({
-                url: 'https://p2001081147trial-trial-dev-router.cfapps.eu10.hana.ondemand.com/api/xsjs/carshop/carShop.xsjs?shopid=' + sShopId,
-                type: 'DELETE',
-				success: function(result) {
-                    that.getView().getModel("odata").refresh();
-                    var newSelCarshop = that._getSelectedCarshopIndex() - 1;
+            this.getView().getModel("odata").remove("/CarShops('"+ sShopId +"')", {
+                method: "DELETE",
+                success: function(data) {
+                    var items = oList.getItems();
 
-                    if (newSelCarshop < 0){
-                        newSelCarshop += 2;
+                    if (oList.getSelectedItem() === null) {
+                        oList.setSelectedItem(items[0], true);
+
+                    this.getOwnerComponent().getRouter()
+                    .navTo("carshopsDetails",
+                        {shopid: sShopId});
                     }
-
-                    that.getView().getModel("odata").refresh();
-                    that._selectNewCarshop(newSelCarshop);
-				}
-            });
-        },
-
-        _selectNewCarshop: function(index){
-            var oList = this.getView().byId("carshops");
-            var items = oList.getItems();
-
-            if (items && items.length > 0) {
-                if (index < 0){
-                    index = 0;
                 }
-
-                var newItemNumber = items[index].getBindingContext("odata").getProperty("shopid");
-        
-                oList.setSelectedItem(items[index], true);
-
-                this.getOwnerComponent().getRouter()
-				.navTo("carshopsDetails",
-					{shopid: newItemNumber});
-            }
-        },
-
-        _getSelectedCarshopIndex: function(){
-            var oList = this.getView().byId("carshops");
-            var items = oList.getItems();
-
-            var selItem = oList.getSelectedItem();
-            return items.indexOf(selItem);
+            });
         }
     });
 });

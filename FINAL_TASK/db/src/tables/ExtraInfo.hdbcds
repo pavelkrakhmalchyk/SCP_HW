@@ -13,7 +13,7 @@ context ExtraInfo{
 		    @Comment: 'Street'
 		    strt : String(100);
 		    @Comment: 'House Number'
-		    hnum : Integer;
+		    hnum : String(30);
 		};
 
 		entity Car {

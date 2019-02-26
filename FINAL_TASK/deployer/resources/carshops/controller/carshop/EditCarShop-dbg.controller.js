@@ -9,13 +9,6 @@ sap.ui.define([
 	return Controller.extend("carshops.controller.carshop.EditCarShop", {
         onInit : function () {
 			this.getOwnerComponent().getRouter().getRoute("editCarShop").attachPatternMatched(this._onRouteMatched, this);
-
-			var oCarshopModel = new JSONModel({
-				shopid: 0,
-				name: ""
-			});
-
-			this.getView().setModel(oCarshopModel, "carshopModel");
         },
         
 		_onRouteMatched: function(oEvent) {
@@ -25,19 +18,18 @@ sap.ui.define([
                 path: "/CarShops('" + carShopId + "')",
 				model: "odata"
 			});
-
-			var name = this.getView().getBindingContext("odata").getProperty("name");
-
-			this.getView().getModel("carshopModel").setProperty("/shopid", carShopId);
-			this.getView().getModel("carshopModel").setProperty("/name", name);
         },
 
         onSaveCarShop: function () {
 			var that = this;
-			var carShop = this.getView().getModel("carshopModel").oData
+			var oModel = this.getView().getBindingContext("odata");
+			
+			var oCarshop = {};
+            oCarshop.shopid = oModel.getProperty("shopid");
+            oCarshop.name = oModel.getProperty("name");
 
-			if (carShop.name != ""){
-				var jsonData = JSON.stringify(carShop);
+			if (oCarshop.name != ""){
+				var jsonData = JSON.stringify(oCarshop);
 
 				$.ajax({
 					type: "PUT",
@@ -52,7 +44,7 @@ sap.ui.define([
 						that.getView().getModel("odata").refresh();
 					}
 				});
-			}else {
+			} else {
 				MessageToast.show("Fill all fields, please");	
 			}	
 		},
