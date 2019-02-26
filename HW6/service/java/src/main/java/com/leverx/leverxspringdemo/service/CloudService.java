@@ -8,9 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.sap.cloud.sdk.cloudplatform.CloudPlatform;
+import com.sap.cloud.sdk.cloudplatform.ScpCfCloudPlatform;
 
 import com.sap.cloud.sdk.cloudplatform.connectivity.DestinationAccessor;
 import com.sap.cloud.sdk.cloudplatform.connectivity.GenericDestination;
+
+import com.google.gson.JsonElement;
 
 import com.leverx.leverxspringdemo.domain.Destination;
 import com.leverx.leverxspringdemo.domain.Property;
@@ -21,8 +24,15 @@ public class CloudService {
 	@Autowired
 	private CloudPlatform platform;
 	
+	@Autowired
+	private ScpCfCloudPlatform namespace;
+	
 	public String getApplicationName() {
 		return platform.getApplicationName();
+	}
+	
+	public Map<String, JsonElement> getNameSpace() {
+		return namespace.getVcapApplication();
 	}
 	
 	public List<Destination> getDestinations() {
