@@ -1,4 +1,4 @@
-const CarShopLib = $.import('xsjs.carshop', 'carShop').carShop;
+const CarShopLib = $.import('xsjs.carshop', 'carshop').carShop;
 const carShopLib = new CarShopLib($.hdb.getConnection({
     treatDateAsUTC: true
 }));

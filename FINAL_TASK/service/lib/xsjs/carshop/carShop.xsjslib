@@ -1,5 +1,6 @@
 var StatementCreator = $.import('utilites', 'statementCreator').statementCreator;
 var CONSTANTS = $.import('utilites', 'constants').constants;
+var Sequence = $.import('xsjs', 'sequence').sequence;
 
 var carShop = function (connection) {
 
@@ -13,7 +14,7 @@ var carShop = function (connection) {
 
 
     this.doPost = function (oCarShop) {
-        oCarShop.shopid = getNextValue(CONSTANTS.CARSHOP_SEQ_NAME);
+        oCarShop.shopid = Sequence.getNextValue(connection, CONSTANTS.CARSHOP_SEQ_NAME);
 
         const statement = StatementCreator.createInsertStatement(CONSTANTS.CARSHOP_TABLE, oCarShop);
         connection.executeUpdate(statement.sql, statement.aValues);
@@ -52,21 +53,10 @@ var carShop = function (connection) {
     };
 
 
-    function getNextValue (sSeqName) {
-        const statement = `select "${sSeqName}".NEXTVAL as "ID" from dummy`;
-        const result = connection.executeQuery(statement);
-
-        if (result.length > 0) {
-            return result[0].ID;
-        } else {
-            throw new Error('ID was not generated');
-        }
-    }
-
     function createAddressForCarshop(shopid){
         var oAddress = {};
 
-        oAddress.adrid = getNextValue(CONSTANTS.CARSHOP_SEQ_NAME);
+        oAddress.adrid = Sequence.getNextValue(connection, CONSTANTS.CARSHOP_SEQ_NAME);
         oAddress.shopid = shopid;
         oAddress.city = "-";
         oAddress.strt = "-";

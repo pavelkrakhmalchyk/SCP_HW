@@ -26,7 +26,7 @@ sap.ui.define([
 				$.ajax({
 					type: "POST",
 					crossDomain: true,
-					url: "https://p2001081147trial-trial-dev-router.cfapps.eu10.hana.ondemand.com/api/xsjs/carshop/carShop.xsjs",
+					url: "https://p2001081147trial-trial-dev-router.cfapps.eu10.hana.ondemand.com/api/xsjs/carshop/carshop.xsjs",
 					headers: {
 						"content-type": "application/json"
 					},

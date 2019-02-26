@@ -1,5 +1,6 @@
 var StatementCreator = $.import('utilites', 'statementCreator').statementCreator;
 var CONSTANTS = $.import('utilites', 'constants').constants;
+var Sequence = $.import('xsjs', 'sequence').sequence;
 
 var address = function (connection) {
     this.doGet = function(){
@@ -12,7 +13,7 @@ var address = function (connection) {
 
 
     this.doPost = function (oAddress) {
-        oAddress.adrid = getNextValue(CONSTANTS.ADDRESS_SEQ_NAME);
+        oAddress.adrid = Sequence.getNextValue(connection, CONSTANTS.ADDRESS_SEQ_NAME);
 
         const statement = StatementCreator.createInsertStatement(CONSTANTS.ADDRESS_TABLE, oAddress);
         connection.executeUpdate(statement.sql, statement.aValues);
@@ -41,16 +42,4 @@ var address = function (connection) {
         $.response.status = $.net.http.OK;
         $.response.setBody(JSON.stringify({}));
     };
-
-
-    function getNextValue (sSeqName) {
-        const statement = `select "${sSeqName}".NEXTVAL as "ID" from dummy`;
-        const result = connection.executeQuery(statement);
-
-        if (result.length > 0) {
-            return result[0].ID;
-        } else {
-            throw new Error('ID was not generated');
-        }
-    }
 };

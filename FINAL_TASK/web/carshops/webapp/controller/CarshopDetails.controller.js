@@ -22,9 +22,9 @@ sap.ui.define([
 					}), new sap.m.Input({
 						value: "{odata>color}"
 					}), new sap.m.Text({
-						text: "{odata>create_time}"
-					}), new sap.m.Text({
 						text: "{odata>update_time}"
+					}), new sap.m.Text({
+						text: "{odata>create_time}"
 					})
 				]
             });

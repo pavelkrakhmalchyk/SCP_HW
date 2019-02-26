@@ -1,5 +1,6 @@
 var StatementCreator = $.import('utilites', 'statementCreator').statementCreator;
 var CONSTANTS = $.import('utilites', 'constants').constants;
+var Sequence = $.import('xsjs', 'sequence').sequence;
 
 var car = function (connection) {
     this.doGet = function(){
@@ -12,7 +13,7 @@ var car = function (connection) {
 
 
     this.doPost = function (oCar) {
-        oCar.crid = getNextValue(CONSTANTS.CAR_SEQ_NAME);
+        oCar.crid = Sequence.getNextValue(connection, CONSTANTS.CAR_SEQ_NAME);
         oCar.create_time = new Date().toISOString();
         oCar.update_time = new Date().toISOString();
 
@@ -45,16 +46,4 @@ var car = function (connection) {
         $.response.status = $.net.http.OK;
         $.response.setBody(JSON.stringify({}));
     };
-
-
-    function getNextValue (sSeqName) {
-        const statement = `select "${sSeqName}".NEXTVAL as "ID" from dummy`;
-        const result = connection.executeQuery(statement);
-
-        if (result.length > 0) {
-            return result[0].ID;
-        } else {
-            throw new Error('ID was not generated');
-        }
-    }
 };

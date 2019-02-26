@@ -46,6 +46,7 @@ function carShopUpdate(param){
     OdataHelper.executeUpdate(param.connection, oUpdateStatment.sql, oUpdateStatment.aValues);
 }
 
+
 function carShopDelete(param){
     var beforeTableName = param.beforeTableName;
 
@@ -64,6 +65,7 @@ function carShopDelete(param){
     oDeleteStatement = StatementCreator.createDeleteStatement(CONSTANTS.ADDRESS_TABLE, {shopid: oCarShop.shopid});
     OdataHelper.executeUpdate(param.connection, oDeleteStatement.sql, oDeleteStatement.aValues);
 }
+
 
 function createAddressForCarshop(param, shopid){
     var oAddress = {};

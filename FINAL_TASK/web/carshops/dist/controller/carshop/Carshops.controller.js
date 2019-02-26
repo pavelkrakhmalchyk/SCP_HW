@@ -1,7 +1,6 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
-    "sap/ui/core/routing/History"
-], function (Controller, History) {
+    "sap/ui/core/mvc/Controller"
+], function (Controller) {
 	"use strict";
 
 	return Controller.extend("carshops.controller.carshop.Carshops", {
@@ -10,16 +9,7 @@ sap.ui.define([
 
         onUpdateFinished: function(oEvent) {
             var oList = oEvent.getSource();
-            var items = oList.getItems();
-
-            if (oList.getSelectedItem() === null) {
-                oList.setSelectedItem(items[0], true);
-
-                var sShopId = items[0].getBindingContext("odata").getProperty("shopid");
-                this.getOwnerComponent().getRouter()
-				.navTo("carshopsDetails",
-					{shopid: sShopId});
-            }
+            this._goToFirstCarshop(oList);
         },
         
         onSelectionChange: function(oEvent) {
@@ -45,23 +35,27 @@ sap.ui.define([
             var that = this;
 
             var oList = this.getView().byId("carshops");
-            var selItem = oList.getSelectedItem();
-            var sShopId = selItem.getBindingContext("odata").getProperty("shopid");
+            var sShopId = oList.getSelectedItem().getBindingContext("odata").getProperty("shopid");
 
             this.getView().getModel("odata").remove("/CarShops('"+ sShopId +"')", {
                 method: "DELETE",
                 success: function(data) {
-                    var items = oList.getItems();
-
-                    if (oList.getSelectedItem() === null) {
-                        oList.setSelectedItem(items[0], true);
-
-                    this.getOwnerComponent().getRouter()
-                    .navTo("carshopsDetails",
-                        {shopid: sShopId});
-                    }
+                    that._goToFirstCarshop(oList);
                 }
             });
+        },
+
+        _goToFirstCarshop: function(oList){
+            var items = oList.getItems();
+
+            if (oList.getSelectedItem() === null) {
+                oList.setSelectedItem(items[0], true);
+
+                var sShopId = items[0].getBindingContext("odata").getProperty("shopid");
+                this.getOwnerComponent().getRouter()
+                .navTo("carshopsDetails",
+                    {shopid: sShopId});
+            }
         }
     });
 });
