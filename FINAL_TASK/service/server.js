@@ -16,12 +16,6 @@ try {
     console.log("[ERROR]", err.message);
 }
 
-try {
-    options = Object.assign(options, xsenv.getServices({ uaa: "pk_uaa" }));
-} catch (err) {
-    console.log("[ERROR]", err.message);
-}
-
 // start server
 xsjs(options).listen(port);
 

@@ -1,4 +1,4 @@
-var statementCreator = class StatementCreator () {
+var statementCreator = class StatementCreator {
     
     static createInsertStatement (sTableName, oValueObject) {
         let statement = {

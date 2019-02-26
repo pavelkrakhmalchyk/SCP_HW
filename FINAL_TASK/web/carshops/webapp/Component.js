@@ -15,12 +15,6 @@ sap.ui.define([
 			UIComponent.prototype.init.apply(this, arguments);
 
 			this.getRouter().initialize();
-
-			this.getRouter().attachTitleChanged(function(oEvent){
-				document.title = oEvent.getParameter("title");
-			});
-
-			
 		}
 	});
 });

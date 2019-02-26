@@ -1,0 +1,24 @@
+<View
+	xmlns="sap.m"
+	xmlns:layout="sap.ui.layout"
+	controllerName="carshops.controller.carshop.AddCarShop">
+	<Page
+        id="carshopInfoPage"
+        title="{i18n>addCarshopPageTitle}"
+        navButtonPress="onNavBack"
+		showNavButton="true">
+		<content>
+            <Panel class="sapUiResponsiveMargin" width="auto">
+                <content>
+                <Button 
+                        text="{i18n>addButtonText}" 
+                        press=".onCreateCarShop"
+                        class="sapUiSmallMarginEnd"/>	
+                <Input 
+                    value="{carshopModel>/name}"
+                    width="20%" />	
+                </content>
+            </Panel>
+		</content>
+	</Page>
+</View>

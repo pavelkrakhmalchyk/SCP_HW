@@ -12,25 +12,69 @@
             "name": "Component.js"
         },
         {
-            "name": "controller\\App-dbg.controller.js",
+            "name": "controller\\car\\AddCar-dbg.controller.js",
             "isDebug": true
         },
         {
-            "name": "controller\\App.controller.js"
+            "name": "controller\\car\\AddCar.controller.js"
+        },
+        {
+            "name": "controller\\carshop\\AddCarShop-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "controller\\carshop\\AddCarShop.controller.js"
+        },
+        {
+            "name": "controller\\carshop\\Carshops-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "controller\\carshop\\Carshops.controller.js"
+        },
+        {
+            "name": "controller\\carshop\\EditCarShop-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "controller\\carshop\\EditCarShop.controller.js"
+        },
+        {
+            "name": "controller\\CarshopDetails-dbg.controller.js",
+            "isDebug": true
+        },
+        {
+            "name": "controller\\CarshopDetails.controller.js"
         },
         {
             "name": "di.code-validation.core_issues.json"
         },
         {
-            "name": "i18n\\i18n_en.properties",
-            "raw": "i18n\\i18n.properties",
-            "locale": "_en"
+            "name": "i18n\\i18n.properties",
+            "raw": "i18n\\i18n.properties"
         },
         {
             "name": "index.html"
         },
         {
+            "name": "manifest-bundle.zip"
+        },
+        {
             "name": "manifest.json"
+        },
+        {
+            "name": "model\\formatter-dbg.js",
+            "isDebug": true
+        },
+        {
+            "name": "model\\formatter.js"
+        },
+        {
+            "name": "resources.json",
+            "merged": true
+        },
+        {
+            "name": "sap-ui-cachebuster-info.json"
         },
         {
             "name": "tmp\\Component-preload.js",
@@ -40,12 +84,23 @@
             "name": "tmp\\Component.js"
         },
         {
-            "name": "tmp\\controller\\App.controller.js"
+            "name": "tmp\\controller\\car\\AddCar.controller.js"
         },
         {
-            "name": "tmp\\i18n\\i18n_en.properties",
-            "raw": "i18n\\i18n.properties",
-            "locale": "_en"
+            "name": "tmp\\controller\\carshop\\AddCarShop.controller.js"
+        },
+        {
+            "name": "tmp\\controller\\carshop\\Carshops.controller.js"
+        },
+        {
+            "name": "tmp\\controller\\carshop\\EditCarShop.controller.js"
+        },
+        {
+            "name": "tmp\\controller\\CarshopDetails.controller.js"
+        },
+        {
+            "name": "tmp\\i18n\\i18n.properties",
+            "raw": "i18n\\i18n.properties"
         },
         {
             "name": "tmp\\index.html"
@@ -54,16 +109,64 @@
             "name": "tmp\\manifest.json"
         },
         {
+            "name": "tmp\\model\\formatter.js"
+        },
+        {
             "name": "tmp\\view\\App.view.xml"
+        },
+        {
+            "name": "tmp\\view\\car\\AddCar.view.xml"
+        },
+        {
+            "name": "tmp\\view\\carshop\\AddCarShop.view.xml"
+        },
+        {
+            "name": "tmp\\view\\carshop\\Carshops.view.xml"
+        },
+        {
+            "name": "tmp\\view\\carshop\\EditCarShop.view.xml"
+        },
+        {
+            "name": "tmp\\view\\CarshopDetails.view.xml"
         },
         {
             "name": "tmp-dbg\\Component.js"
         },
         {
-            "name": "tmp-dbg\\controller\\App.controller.js"
+            "name": "tmp-dbg\\controller\\car\\AddCar.controller.js"
+        },
+        {
+            "name": "tmp-dbg\\controller\\carshop\\AddCarShop.controller.js"
+        },
+        {
+            "name": "tmp-dbg\\controller\\carshop\\Carshops.controller.js"
+        },
+        {
+            "name": "tmp-dbg\\controller\\carshop\\EditCarShop.controller.js"
+        },
+        {
+            "name": "tmp-dbg\\controller\\CarshopDetails.controller.js"
+        },
+        {
+            "name": "tmp-dbg\\model\\formatter.js"
         },
         {
             "name": "view\\App.view.xml"
+        },
+        {
+            "name": "view\\car\\AddCar.view.xml"
+        },
+        {
+            "name": "view\\carshop\\AddCarShop.view.xml"
+        },
+        {
+            "name": "view\\carshop\\Carshops.view.xml"
+        },
+        {
+            "name": "view\\carshop\\EditCarShop.view.xml"
+        },
+        {
+            "name": "view\\CarshopDetails.view.xml"
         },
         {
             "name": "xs-app.json"

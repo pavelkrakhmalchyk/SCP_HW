@@ -61,24 +61,29 @@
 			},
 			"targets": {
 				"carshops": {
-					"viewName": "CarShops",
+					"viewName": "carshop.Carshops",
 					"controlAggregation": "masterPages",
 					"viewLevel": 0
 				},
 				"carshopsDetails": {
-					"viewName": "Details",
+					"viewName": "CarshopDetails",
 					"controlAggregation": "detailPages",
 					"viewLevel": 1
 				},
-				"addNewCarShop": {
-					"viewName": "AddNewCarShop",
+				"addCarShop": {
+					"viewName": "carshop.AddCarShop",
 					"controlAggregation": "detailPages",
 					"viewLevel": 1
 				},
 				"editCarShop": {
-					"viewName": "EditCarShop",
+					"viewName": "carshop.EditCarShop",
 					"controlAggregation": "detailPages",
 					"viewLevel": 1
+				},
+				"addCar": {
+					"viewName": "car.AddCar",
+					"controlAggregation": "detailPages",
+					"viewLevel": 2
 				}
 			},
 			"routes": [
@@ -96,11 +101,11 @@
 					]
 				},
 				{
-					"name": "addNewCarShop",
-					"pattern": "addNewCarShop",
+					"name": "addCarShop",
+					"pattern": "addCarShop",
 					"target": [
 						"carshops",
-						"addNewCarShop"
+						"addCarShop"
 					]
 				},
 				{
@@ -109,6 +114,14 @@
 					"target": [
 						"carshops",
 						"editCarShop"
+					]
+				},
+				{
+					"name": "addCar",
+					"pattern": "carshops/:shopid:/addCar",
+					"target": [
+						"carshops",
+						"addCar"
 					]
 				}
 			]
@@ -131,7 +144,11 @@
 		},
 		"models": {
 			"odata": {
-				"dataSource": "mainService"
+				"dataSource": "mainService",
+				"settings": {
+					"defaultBindingMode": "TwoWay",
+					"defaultUpdateMethod": "sap.ui.model.odata.UpdateMethod.Put"
+				}
 			},
 			"i18n": {
 				"type": "sap.ui.model.resource.ResourceModel",

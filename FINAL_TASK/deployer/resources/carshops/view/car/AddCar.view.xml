@@ -1,0 +1,46 @@
+<View
+	xmlns="sap.m"
+	xmlns:layout="sap.ui.layout"
+	controllerName="carshops.controller.car.AddCar"
+    xmlns:f="sap.ui.layout.form">
+	<Page
+        id="carshopInfoPage"
+        title="{i18n>addCarPageTitle}"
+        navButtonPress="onNavBack"
+		showNavButton="true">
+		<content>   
+            <VBox class="sapUiSmallMargin">
+                <f:SimpleForm 
+                editable="true"
+                layout="ResponsiveGridLayout"
+                labelSpanXL="3"
+                labelSpanL="3"
+                labelSpanM="3"
+                labelSpanS="12"
+                emptySpanXL="4"
+                emptySpanL="4"
+                emptySpanM="4"
+                emptySpanS="0"
+                columnsXL="6"
+                columnsL="6"
+                columnsM="6">
+                    <f:content>
+                        <Label text="{i18n>name}" />
+                        <Input value="{carModel>/name}" />
+
+                        <Label text="{i18n>model}" />
+                        <Input value="{carModel>/model}" />
+                        
+                        <Label text="{i18n>color}" />
+                        <Input value="{carModel>/color}" />
+                        
+                        <Button 
+                            text="{i18n>addButtonText}" 
+                            press=".onCreateCar"
+                            class="sapUiSmallMarginEnd"/>
+                    </f:content>
+                </f:SimpleForm>
+            </VBox>
+		</content>
+	</Page>
+</View>

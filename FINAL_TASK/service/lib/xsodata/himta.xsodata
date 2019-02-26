@@ -13,8 +13,8 @@ service namespace "HiMTA"{
 
     "HiMTA::ExtraInfo.Car" as "Cars"
                 navigates("Cars_2_CarShops" as "toCarShop")
-            create forbidden
-            update forbidden
+            create using "xsodata.exits:odataCarsExits.xsjslib::carCreate"
+            update using "xsodata.exits:odataCarsExits.xsjslib::carUpdate"
             delete forbidden;
 
     association "CarShops_2_Address" principal "CarShops"("shopid")

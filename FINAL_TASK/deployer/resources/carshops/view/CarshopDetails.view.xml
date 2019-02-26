@@ -1,0 +1,111 @@
+<View
+	xmlns="sap.m"
+	xmlns:layout="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+	controllerName="carshops.controller.CarshopDetails">
+	<Page
+        id="carshopInfoPage"
+        title="{odata>name}">
+		<content>
+            <Panel
+				id="carshopInfoPanel">
+                <headerToolbar>
+					<Toolbar>
+						<Title text="{i18n>carshopDetailsPanelTitle}" level="H2"/>
+                        <ToolbarSpacer/>
+                        <Button 
+                            icon="sap-icon://edit" 
+                            tooltip="{i18n>editModeTooltip}"
+                            press="onEditAddressPress" />
+					</Toolbar>
+				</headerToolbar>
+				<content>
+					<f:SimpleForm id="adressForm">
+						<f:content>
+							<Label text="{i18n>city}"/>
+							<Text text="{odata>toAddress/city}"/>
+							<Label text="{i18n>street}"/>
+							<Text text="{odata>toAddress/strt}"/>
+							<Label text="{i18n>houseNumber}"/>
+							<Text text="{odata>toAddress/hnum}"/>
+                            <Label text="{i18n>updatedAt}"/>
+							<Text text="{path:'odata>update_time', formatter:'.formatter.removetime'}"/>
+                            <Label text="{i18n>createdAt}"/>
+							<Text text="{path:'odata>create_time', formatter:'.formatter.removetime'}"/>
+						</f:content>
+					</f:SimpleForm>
+				</content>
+			</Panel>
+            <Table
+                id="carsTable"
+                items="{
+                    path: 'odata>toCars'
+                }"
+                mode="Delete"
+                delete="onDeleteCar">
+                <headerToolbar>
+					<Toolbar>
+						<Title text="{i18n>carTableTitle}" level="H2"/>
+						<ToolbarSpacer/>
+						<Button
+							tooltip="{i18n>addCarTooltip}"
+							icon="sap-icon://add"
+							press="onAddCar" 
+                            visible="{path:'editMode>/cars/enabled', formatter:'.formatter.stringToBooleanReverse'}" />
+                        <Button 
+                            tooltip="{i18n>editModeTooltip}" 
+                            icon="sap-icon://edit" 
+                            press="onEditCars" 
+                            visible="{path:'editMode>/cars/enabled', formatter:'.formatter.stringToBooleanReverse'}" />
+                        <Button 
+                            text="{i18n>saveButtonText}" 
+                            type="Transparent"
+							press="onSaveCars" 
+                            visible="{path:'editMode>/cars/enabled', formatter:'.formatter.stringToBoolean'}" />
+						<Button 
+                            text="{i18n>cancelButtonText}" 
+                            type="Transparent"
+							press="onCancelCars" 
+                            visible="{path:'editMode>/cars/enabled', formatter:'.formatter.stringToBoolean'}" />
+					</Toolbar>
+				</headerToolbar>
+                <columns>
+                    <Column>
+                        <Text text="{i18n>name}"/>
+                    </Column>
+                    <Column>
+                        <Text text="{i18n>model}"/>
+                    </Column>
+                    <Column>
+                        <Text text="{i18n>color}"/>
+                    </Column>
+                    <Column>
+                        <Text text="{i18n>createdAt}"/>
+                    </Column>
+                    <Column>
+                        <Text text="{i18n>updatedAt}"/>
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem id="columnListItem">
+                        <cells>
+                            <Text text="{odata>name}"/>
+                        </cells>
+                        <cells>
+                            <Text text="{odata>model}"/>
+                        </cells>
+                        <cells>
+                            <Text text="{odata>color}"/>
+                        </cells>
+                        <cells>
+                            <Text text="{path:'odata>create_time', formatter:'.formatter.removetime'}"/>
+                        </cells>
+                        <cells>
+                            <Text text="{path:'odata>update_time', formatter:'.formatter.removetime'}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+		</content>
+	</Page>
+</View>
