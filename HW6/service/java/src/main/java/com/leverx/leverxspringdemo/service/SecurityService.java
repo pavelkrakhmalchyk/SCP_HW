@@ -13,6 +13,4 @@ public class SecurityService {
 			throw new AccessDeniedException("User action is not permitted! Insufficient privilege!");
 		}
 	}
-
-	
 }

@@ -22,6 +22,7 @@ import com.leverx.leverxspringdemo.domain.Car;
 public class CarDao implements ICarDao {
 
 	private static final Logger logger = LoggerFactory.getLogger(CarDao.class);
+	private static final String CAR_TABLE = "\"HiMTA::ExtraInfo.Car\"";
 
 	@Autowired
 	private DataSource dataSource;
@@ -31,7 +32,7 @@ public class CarDao implements ICarDao {
 		Optional<Car> entity = null;
 		try (Connection conn = dataSource.getConnection();
 				PreparedStatement stmnt = conn.prepareStatement(
-						"SELECT TOP 1 * FROM \"HiMTA::ExtraInfo.Car\" WHERE \"crid\" = ?")) {
+						"SELECT TOP 1 * FROM " + CAR_TABLE + " WHERE \"crid\" = ?")) {
 			stmnt.setString(1, id);
 			ResultSet result = stmnt.executeQuery();
 			if (result.next()) {
@@ -56,7 +57,7 @@ public class CarDao implements ICarDao {
 		List<Car> CarList = new ArrayList<Car>();
 		try (Connection conn = dataSource.getConnection();
 				PreparedStatement stmnt = conn
-						.prepareStatement("SELECT * FROM \"HiMTA::ExtraInfo.Car\"")) {
+						.prepareStatement("SELECT * FROM " + CAR_TABLE)) {
 			ResultSet result = stmnt.executeQuery();
 			while (result.next()) {
 				Car Car = new Car();
@@ -77,7 +78,7 @@ public class CarDao implements ICarDao {
 	public void save(Car entity) {
 		try (Connection conn = dataSource.getConnection();
 				PreparedStatement stmnt = conn.prepareStatement(
-						"INSERT INTO \"HiMTA::ExtraInfo.Car\"(\"shopid\", \"name\", \"model\", \"color\") VALUES (?, ?, ?, ?)")) {
+						"INSERT INTO " + CAR_TABLE + "(\"shopid\", \"name\", \"model\", \"color\") VALUES (?, ?, ?, ?)")) {
 			stmnt.setString(1, entity.getShopid());
 			stmnt.setString(2, entity.getName());
 			stmnt.setString(3, entity.getModel());
@@ -91,7 +92,7 @@ public class CarDao implements ICarDao {
 	@Override
 	public void delete(String id) {
 		try (Connection conn = dataSource.getConnection();
-				PreparedStatement stmnt = conn.prepareStatement("DELETE FROM \"HiMTA::ExtraInfo.Car\" WHERE \"crid\" = ?")) {
+				PreparedStatement stmnt = conn.prepareStatement("DELETE FROM " + CAR_TABLE + " WHERE \"crid\" = ?")) {
 			stmnt.setString(1, id);
 			stmnt.execute();
 		} catch (SQLException e) {
@@ -103,7 +104,7 @@ public class CarDao implements ICarDao {
 	public void update(Car entity) {
 		try (Connection conn = dataSource.getConnection();
 				PreparedStatement stmnt = conn.prepareStatement(
-						"UPDATE \"HiMTA::ExtraInfo.Car\" SET \"shopid\" = ?, \"name\" = ?, \"model\" = ?,  \"color\" = ?,  WHERE \"crid\" = ?")) {
+						"UPDATE " + CAR_TABLE +" SET \"shopid\" = ?, \"name\" = ?, \"model\" = ?,  \"color\" = ?,  WHERE \"crid\" = ?")) {
 			stmnt.setString(1, entity.getShopid());
 			stmnt.setString(2, entity.getName());
 			stmnt.setString(3, entity.getModel());

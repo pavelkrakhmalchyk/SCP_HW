@@ -2,7 +2,7 @@ package com.leverx.leverxspringdemo.service;
 
 import java.util.List;
 import java.util.Optional;
-
+import java.sql.SQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +21,7 @@ public class CarShopService {
 	
 	public CarShop getCarShop(String id) {
 		Optional<CarShop> CarShopOptional = this.carShopDao.getById(id);
+
 		CarShop CarShop = null;
 		if (CarShopOptional.isPresent()) {
 			CarShop = CarShopOptional.get();
@@ -34,6 +35,10 @@ public class CarShopService {
 	
 	public void updateCarShop(CarShop CarShop) {
 		this.carShopDao.update(CarShop);
+	}
+	
+	public CarShop getCarshopCars(String id) throws SQLException {
+		return carShopDao.getCars(id);
 	}
 	
 	public void deleteCarShop(String id) {

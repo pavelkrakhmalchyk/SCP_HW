@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.SQLException;
+
 import com.leverx.leverxspringdemo.domain.CarShop;
 import com.leverx.leverxspringdemo.service.CarShopService;
 
@@ -43,6 +45,11 @@ public class CarShopController {
 	@PutMapping(value="/CarShop")
 	public void updateCarShop(@RequestBody CarShop CarShop) {
 		CarShopService.updateCarShop(CarShop);
+	}
+	
+	@GetMapping(value="/CarShop/{id}/Cars")
+	public CarShop getPersonCars(@PathVariable String id) throws SQLException {
+		return CarShopService.getCarshopCars(id);
 	}
 	
 }
